@@ -1,0 +1,193 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meerkat Help</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        /* Custom Accordion Styles */
+        details>summary {
+            list-style: none;
+        }
+
+        details>summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-gray-800">
+
+    <!-- Navbar / Back Link -->
+    <nav class="p-6">
+        <a href="/" class="text-gray-400 hover:text-gray-600 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+        </a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 py-8 text-center">
+
+        <!-- Header -->
+        <div class="mb-12 relative">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4 tracking-tight">
+                Lost in space?<br>
+                Meerkat is here to help.
+            </h1>
+            <p class="text-gray-500 text-lg">
+                A comprehensive guide to all Meerkat's features
+            </p>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="max-w-2xl mx-auto mb-16 relative group">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <svg class="h-5 w-5 text-gray-400 group-focus-within:text-gray-600 transition-colors" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </div>
+            <input type="text"
+                class="block w-full pl-12 pr-4 py-4 bg-white border border-gray-200 rounded-full text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-100 focus:border-red-200 shadow-sm hover:shadow-md transition-shadow"
+                placeholder="Search the docs">
+        </div>
+
+        <!-- Hero Card -->
+        <div
+            class="bg-gray-100/50 rounded-3xl p-8 md:p-12 shadow-sm text-left flex flex-col md:flex-row items-start relative overflow-hidden">
+
+            <!-- Image Section -->
+            <div class="w-full md:w-1/2 flex justify-center md:justify-start mb-8 md:mb-0 relative z-10">
+                <img src="{% static 'images/meerkat_helper.png' %}" alt="Meerkat Helper"
+                    class="h-64 md:h-80 object-contain drop-shadow-sm">
+            </div>
+
+            <!-- Accordion Section -->
+            <div class="w-full md:w-1/2 md:pl-12 relative z-10">
+                <div class="mb-6 flex justify-between items-start">
+                    <h2 class="text-3xl font-bold text-gray-800">Get Started</h2>
+                </div>
+
+                <p class="text-gray-500 mb-8">
+                    A good place for beginning a new journey
+                </p>
+
+                <div class="space-y-4">
+                    <!-- Item 1 -->
+                    <details class="group">
+                        <summary
+                            class="flex justify-between items-center font-medium cursor-pointer list-none text-red-500 hover:text-red-600 transition-colors">
+                            <span>What's New in Meerkat 2</span>
+                            <span class="transition group-open:rotate-180">
+                                <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    viewBox="0 0 24 24" width="24">
+                                    <path d="M6 9l6 6 6-6"></path>
+                                </svg>
+                            </span>
+                        </summary>
+                        <p class="text-gray-600 mt-2 text-sm leading-relaxed animate-fade-in-down">
+                            Meerkat 2 introduces AI-powered analysis, faster scanning intervals, and a redesigned
+                            dashboard for better usability.
+                        </p>
+                    </details>
+
+                    <!-- Item 2 -->
+                    <details class="group">
+                        <summary
+                            class="flex justify-between items-center font-medium cursor-pointer list-none text-red-500 hover:text-red-600 transition-colors">
+                            <span>Monitoring Targets</span>
+                            <span class="transition group-open:rotate-180">
+                                <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    viewBox="0 0 24 24" width="24">
+                                    <path d="M6 9l6 6 6-6"></path>
+                                </svg>
+                            </span>
+                        </summary>
+                        <p class="text-gray-600 mt-2 text-sm leading-relaxed animate-fade-in-down">
+                            Learn how to add new competitor sites, set custom scanning intervals (15, 30, 60 mins), and
+                            manage your target list.
+                        </p>
+                    </details>
+
+                    <!-- Item 3 -->
+                    <details class="group">
+                        <summary
+                            class="flex justify-between items-center font-medium cursor-pointer list-none text-red-500 hover:text-red-600 transition-colors">
+                            <span>Meerkat Pro</span>
+                            <span class="transition group-open:rotate-180">
+                                <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    viewBox="0 0 24 24" width="24">
+                                    <path d="M6 9l6 6 6-6"></path>
+                                </svg>
+                            </span>
+                        </summary>
+                        <p class="text-gray-600 mt-2 text-sm leading-relaxed animate-fade-in-down">
+                            Pro features include unlimited targets, priority support, and historical data retention for
+                            up to 1 year.
+                        </p>
+                    </details>
+
+                    <!-- Item 4 -->
+                    <details class="group">
+                        <summary
+                            class="flex justify-between items-center font-medium cursor-pointer list-none text-red-500 hover:text-red-600 transition-colors">
+                            <span>Analysis Reports</span>
+                            <span class="transition group-open:rotate-180">
+                                <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    viewBox="0 0 24 24" width="24">
+                                    <path d="M6 9l6 6 6-6"></path>
+                                </svg>
+                            </span>
+                        </summary>
+                        <p class="text-gray-600 mt-2 text-sm leading-relaxed animate-fade-in-down">
+                            Generate PDF reports of your competitors' changes, including screenshot comparisons and
+                            Gemini AI summaries.
+                        </p>
+                    </details>
+
+                    <!-- Item 5 -->
+                    <details class="group">
+                        <summary
+                            class="flex justify-between items-center font-medium cursor-pointer list-none text-red-500 hover:text-red-600 transition-colors">
+                            <span>Import Sites to Meerkat</span>
+                            <span class="transition group-open:rotate-180">
+                                <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    viewBox="0 0 24 24" width="24">
+                                    <path d="M6 9l6 6 6-6"></path>
+                                </svg>
+                            </span>
+                        </summary>
+                        <p class="text-gray-600 mt-2 text-sm leading-relaxed animate-fade-in-down">
+                            Import targets in bulk using CSV files. Ensure your URL list is formatted comfortably for
+                            easy migration.
+                        </p>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Decorative background elements for the card -->
+            <div
+                class="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-white/50 to-transparent pointer-events-none">
+            </div>
+        </div>
+
+    </main>
+</body>
+
+</html>

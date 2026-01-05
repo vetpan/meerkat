@@ -1,0 +1,160 @@
+{% extends 'dashboard/help/help_base.html' %}
+
+{% block title %}Help Center{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="text-center mb-12">
+    <h1 class="text-4xl font-bold text-ink mb-4">Hoe kunnen we helpen?</h1>
+    <p class="text-ink-secondary text-lg max-w-2xl mx-auto">
+        Welkom bij het Meerkat Help Center. Vind antwoorden op al je vragen over competitor monitoring.
+    </p>
+</div>
+
+<!-- Quick Search -->
+<div class="max-w-2xl mx-auto mb-16">
+    <div class="relative">
+        <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-ink-tertiary" fill="none"
+            stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <input type="text" placeholder="Zoek in de documentatie..."
+            class="w-full pl-12 pr-4 py-4 bg-white border border-border rounded-2xl text-ink placeholder-ink-tertiary focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent shadow-sm">
+    </div>
+</div>
+
+<!-- Category Cards -->
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+    <!-- Aan de slag -->
+    <a href="{% url 'dashboard:help_getting_started' %}" class="feature-card group">
+        <div
+            class="w-12 h-12 bg-gradient-to-br from-green-100 to-emerald-100 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+        </div>
+        <h3 class="font-semibold text-ink text-lg mb-2">Aan de slag</h3>
+        <p class="text-ink-secondary text-sm">Leer de basics van Meerkat en voeg je eerste site toe.</p>
+    </a>
+
+    <!-- Targets beheren -->
+    <a href="{% url 'dashboard:help_targets' %}" class="feature-card group">
+        <div
+            class="w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+            </svg>
+        </div>
+        <h3 class="font-semibold text-ink text-lg mb-2">Targets beheren</h3>
+        <p class="text-ink-secondary text-sm">Sites toevoegen, bewerken en scan intervallen instellen.</p>
+    </a>
+
+    <!-- Scans & Analyse -->
+    <a href="{% url 'dashboard:help_scans' %}" class="feature-card group">
+        <div
+            class="w-12 h-12 bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+            </svg>
+        </div>
+        <h3 class="font-semibold text-ink text-lg mb-2">Scans & Analyse</h3>
+        <p class="text-ink-secondary text-sm">Begrijp hoe scans werken en interpreteer de AI resultaten.</p>
+    </a>
+
+    <!-- Features -->
+    <a href="{% url 'dashboard:help_features' %}" class="feature-card group">
+        <div
+            class="w-12 h-12 bg-gradient-to-br from-amber-100 to-orange-100 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+            </svg>
+        </div>
+        <h3 class="font-semibold text-ink text-lg mb-2">Features</h3>
+        <p class="text-ink-secondary text-sm">Ontdek alle mogelijkheden van Meerkat.</p>
+    </a>
+
+    <!-- FAQ -->
+    <a href="{% url 'dashboard:help_faq' %}" class="feature-card group">
+        <div
+            class="w-12 h-12 bg-gradient-to-br from-rose-100 to-red-100 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <svg class="w-6 h-6 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        </div>
+        <h3 class="font-semibold text-ink text-lg mb-2">Veelgestelde vragen</h3>
+        <p class="text-ink-secondary text-sm">Snelle antwoorden op de meest gestelde vragen.</p>
+    </a>
+
+    <!-- Pro -->
+    <div class="feature-card bg-gradient-to-br from-accent/5 to-purple-50 border-accent/20">
+        <div
+            class="w-12 h-12 bg-gradient-to-br from-accent to-purple-600 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                    d="M5 2a2 2 0 00-2 2v14l3.5-2 3.5 2 3.5-2 3.5 2V4a2 2 0 00-2-2H5zm2.5 3a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm6.207.293a1 1 0 00-1.414 0l-6 6a1 1 0 101.414 1.414l6-6a1 1 0 000-1.414zM12.5 10a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"
+                    clip-rule="evenodd" />
+            </svg>
+        </div>
+        <h3 class="font-semibold text-ink text-lg mb-2">Meerkat Pro</h3>
+        <p class="text-ink-secondary text-sm">Unlock premium features voor je business.</p>
+    </div>
+</div>
+
+<!-- Popular Topics -->
+<div class="bg-white rounded-2xl border border-border p-8">
+    <h2 class="text-xl font-bold text-ink mb-6">Populaire onderwerpen</h2>
+    <div class="grid md:grid-cols-2 gap-4">
+        <a href="{% url 'dashboard:help_getting_started' %}"
+            class="flex items-center gap-3 p-4 rounded-xl hover:bg-surface transition-colors group">
+            <div
+                class="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+            </div>
+            <span class="text-ink-secondary group-hover:text-ink transition-colors">Hoe voeg ik een nieuwe site
+                toe?</span>
+        </a>
+        <a href="{% url 'dashboard:help_scans' %}"
+            class="flex items-center gap-3 p-4 rounded-xl hover:bg-surface transition-colors group">
+            <div
+                class="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+            </div>
+            <span class="text-ink-secondary group-hover:text-ink transition-colors">Hoe vaak scant Meerkat
+                websites?</span>
+        </a>
+        <a href="{% url 'dashboard:help_scans' %}"
+            class="flex items-center gap-3 p-4 rounded-xl hover:bg-surface transition-colors group">
+            <div
+                class="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+            </div>
+            <span class="text-ink-secondary group-hover:text-ink transition-colors">Hoe werkt de AI analyse?</span>
+        </a>
+        <a href="{% url 'dashboard:help_faq' %}"
+            class="flex items-center gap-3 p-4 rounded-xl hover:bg-surface transition-colors group">
+            <div
+                class="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+            <span class="text-ink-secondary group-hover:text-ink transition-colors">Hoe lang worden screenshots
+                bewaard?</span>
+        </a>
+    </div>
+</div>
+{% endblock %}

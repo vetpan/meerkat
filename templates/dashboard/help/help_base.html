@@ -1,0 +1,363 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Help & Documentatie{% endblock %} - Meerkat</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ink': '#1D1D1F',
+                        'ink-secondary': '#6E6E73',
+                        'ink-tertiary': '#86868B',
+                        'surface': '#F5F5F7',
+                        'surface-card': '#FFFFFF',
+                        'border': '#E5E5EA',
+                        'accent': '#0066CC',
+                        'accent-hover': '#0055B3',
+                        'success': '#34C759',
+                        'danger': '#FF3B30',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+        }
+
+        /* Smooth transitions */
+        * {
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        }
+
+        /* Sidebar nav item */
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 16px;
+            border-radius: 10px;
+            color: #6E6E73;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover {
+            background: rgba(0, 102, 204, 0.06);
+            color: #1D1D1F;
+        }
+
+        .nav-item.active {
+            background: rgba(0, 102, 204, 0.1);
+            color: #0066CC;
+        }
+
+        .nav-item svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        /* Content styling */
+        .prose h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1D1D1F;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .prose h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1D1D1F;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .prose p {
+            color: #6E6E73;
+            line-height: 1.75;
+            margin-bottom: 1rem;
+        }
+
+        .prose ul,
+        .prose ol {
+            color: #6E6E73;
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        .prose li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Feature card */
+        .feature-card {
+            background: white;
+            border: 1px solid #E5E5EA;
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.2s ease;
+        }
+
+        .feature-card:hover {
+            border-color: #0066CC;
+            box-shadow: 0 4px 20px rgba(0, 102, 204, 0.1);
+        }
+
+        /* Step card */
+        .step-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 20px;
+            background: #F5F5F7;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: #0066CC;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        /* Accordion */
+        .accordion-item {
+            border-bottom: 1px solid #E5E5EA;
+        }
+
+        .accordion-trigger {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            font-weight: 600;
+            color: #1D1D1F;
+            cursor: pointer;
+            background: none;
+            border: none;
+            text-align: left;
+        }
+
+        .accordion-trigger:hover {
+            color: #0066CC;
+        }
+
+        .accordion-content {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.3s ease;
+        }
+
+        .accordion-content.open {
+            max-height: 500px;
+        }
+
+        .accordion-chevron {
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-item.open .accordion-chevron {
+            transform: rotate(180deg);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #D1D1D6;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #A1A1A6;
+        }
+    </style>
+</head>
+
+<body class="bg-surface min-h-screen">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-[280px] bg-white border-r border-border flex flex-col fixed h-full">
+            <!-- Logo -->
+            <div class="p-6 border-b border-border/50" style="height: 88px;">
+                <div class="flex items-center space-x-3">
+                    <div class="flex-shrink-0">
+                        <svg class="h-10 w-auto" viewBox="0 0 992 1056" xmlns="http://www.w3.org/2000/svg">
+                            <g transform="translate(0,1056) scale(0.1,-0.1)" fill="#1D1D1F">
+                                <path
+                                    d="M4992 9400 c-188 -50 -335 -179 -427 -373 -58 -124 -57 -112 -65 -777 -4 -338 -10 -642 -14 -675 -9 -95 -25 -346 -42 -665 -8 -162 -24 -446 -35 -630 -11 -184 -24 -416 -29 -515 -6 -99 -14 -252 -19 -340 -6 -88 -15 -254 -21 -370 -6 -115 -18 -312 -26 -436 -8 -125 -14 -237 -14 -250 0 -16 -23 -48 -64 -92 -123 -128 -212 -287 -284 -507 -88 -266 -110 -436 -122 -940 -9 -404 -19 -484 -74 -632 -79 -209 -204 -339 -372 -383 -35 -9 -141 -19 -264 -25 -113 -6 -279 -15 -370 -20 -91 -6 -302 -15 -470 -20 -168 -5 -372 -14 -455 -20 -82 -5 -222 -12 -310 -15 -223 -9 -283 -26 -371 -107 -70 -64 -100 -127 -119 -245 l-7 -43 634 -3 c348 -1 1835 -3 3303 -2 l2670 0 -2 57 c-3 80 -47 170 -116 235 -89 85 -156 109 -512 188 -115 26 -214 51 -219 55 -9 9 57 148 157 335 29 55 83 156 119 225 36 69 91 175 123 235 32 61 97 186 144 280 l86 170 -1 105 c-1 95 -5 117 -43 230 -53 159 -160 375 -299 605 -100 164 -118 205 -90 205 13 0 148 92 184 126 94 90 170 225 205 369 26 105 30 268 10 355 -23 99 -102 342 -158 485 -98 252 -212 534 -248 612 -8 17 -15 33 -15 36 0 3 -13 34 -29 69 -16 35 -52 117 -81 183 -69 160 -118 269 -145 330 -54 118 -75 166 -75 171 0 3 -39 91 -86 197 -47 106 -99 224 -116 262 -17 39 -48 106 -69 150 -20 44 -65 143 -99 220 -34 77 -68 153 -76 169 -25 52 -23 53 114 59 184 7 268 43 383 164 82 86 130 171 150 270 15 73 6 123 -27 154 -24 22 -35 24 -147 27 -144 4 -117 -10 -333 187 -95 87 -166 144 -201 160 -67 32 -185 44 -435 45 l-188 0 0 -82 c0 -46 5 -100 11 -121 19 -68 88 -129 174 -152 17 -5 125 -9 240 -10 206 -1 211 -1 260 -27 28 -14 97 -45 155 -69 132 -54 184 -83 188 -103 4 -18 -41 -141 -68 -191 l-17 -30 -509 -5 c-395 -5 -517 -9 -546 -19 -98 -36 -158 -128 -158 -243 0 -63 3 -70 43 -126 23 -33 65 -93 94 -134 29 -40 80 -113 115 -161 68 -95 215 -245 288 -294 63 -41 203 -108 280 -133 36 -12 101 -26 145 -31 44 -6 94 -13 111 -15 27 -4 35 -12 53 -56 11 -28 21 -55 21 -60 0 -6 7 -24 15 -41 8 -18 32 -81 54 -142 74 -206 169 -460 186 -500 9 -22 44 -116 77 -210 84 -238 102 -303 147 -520 42 -204 51 -293 58 -546 6 -238 -6 -438 -37 -588 -25 -124 -108 -406 -265 -896 -31 -99 -83 -263 -115 -365 -31 -102 -90 -288 -129 -415 -126 -404 -150 -459 -236 -530 -24 -19 -75 -50 -112 -68 -65 -31 -73 -32 -190 -32 -68 0 -126 4 -132 10 -6 7 -3 22 8 45 28 55 81 151 111 200 96 158 367 703 405 815 86 253 71 456 -53 705 -31 63 -58 118 -60 122 -2 4 32 25 75 45 150 72 277 228 332 406 52 170 30 548 -49 837 -73 265 -251 613 -424 831 -12 14 -32 40 -46 59 -85 113 -141 176 -549 625 -30 33 -145 170 -206 247 -15 18 -92 133 -148 218 -78 120 -190 376 -230 525 -35 132 -48 264 -45 470 l3 200 77 7 c90 8 125 24 166 74 54 66 58 145 18 382 -28 165 8 238 131 261 28 6 319 11 657 12 365 1 609 5 612 11 9 15 -43 82 -89 115 -101 71 -67 68 -727 70 -561 2 -599 1 -668 -17z" />
+                            </g>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="text-[15px] font-bold text-ink tracking-tight">Meerkat</div>
+                        <div class="text-[11px] text-ink-tertiary font-medium tracking-wide uppercase">Competitor
+                            Intelligence</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back to Dashboard -->
+            <div class="px-4 pt-4">
+                <a href="{% url 'dashboard:index' %}"
+                    class="flex items-center gap-2 px-4 py-2.5 text-ink-secondary hover:text-accent text-sm font-medium rounded-lg hover:bg-accent/5 transition-all">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    Terug naar Dashboard
+                </a>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex-1 overflow-y-auto p-4">
+                <div class="space-y-1">
+                    <a href="{% url 'dashboard:help_index' %}"
+                        class="nav-item {% if request.resolver_match.url_name == 'help_index' %}active{% endif %}">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                        </svg>
+                        Overzicht
+                    </a>
+
+                    <a href="{% url 'dashboard:help_getting_started' %}"
+                        class="nav-item {% if request.resolver_match.url_name == 'help_getting_started' %}active{% endif %}">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        Aan de slag
+                    </a>
+
+                    <a href="{% url 'dashboard:help_targets' %}"
+                        class="nav-item {% if request.resolver_match.url_name == 'help_targets' %}active{% endif %}">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                        </svg>
+                        Targets beheren
+                    </a>
+
+                    <a href="{% url 'dashboard:help_scans' %}"
+                        class="nav-item {% if request.resolver_match.url_name == 'help_scans' %}active{% endif %}">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                        </svg>
+                        Scans & Analyse
+                    </a>
+
+                    <a href="{% url 'dashboard:help_features' %}"
+                        class="nav-item {% if request.resolver_match.url_name == 'help_features' %}active{% endif %}">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                        </svg>
+                        Features
+                    </a>
+
+                    <a href="{% url 'dashboard:help_faq' %}"
+                        class="nav-item {% if request.resolver_match.url_name == 'help_faq' %}active{% endif %}">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        FAQ
+                    </a>
+                </div>
+
+                <!-- Pro section -->
+                <div class="mt-8 pt-6 border-t border-border">
+                    <div class="bg-gradient-to-br from-accent/10 to-purple-100 rounded-xl p-4">
+                        <div class="flex items-center gap-2 mb-2">
+                            <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M5 2a2 2 0 00-2 2v14l3.5-2 3.5 2 3.5-2 3.5 2V4a2 2 0 00-2-2H5zm2.5 3a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm6.207.293a1 1 0 00-1.414 0l-6 6a1 1 0 101.414 1.414l6-6a1 1 0 000-1.414zM12.5 10a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <span class="font-semibold text-ink text-sm">Meerkat Pro</span>
+                        </div>
+                        <p class="text-xs text-ink-secondary mb-3">Unlock unlimited targets, priority support, en meer.
+                        </p>
+                        <button
+                            class="w-full bg-accent text-white text-xs font-semibold py-2 rounded-lg hover:bg-accent-hover transition-colors">
+                            Upgrade naar Pro
+                        </button>
+                    </div>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main content -->
+        <main class="flex-1 ml-[280px]">
+            <!-- Breadcrumbs -->
+            <div class="bg-white border-b border-border px-8 py-4">
+                <nav class="flex items-center gap-2 text-sm">
+                    <a href="{% url 'dashboard:index' %}" class="text-ink-tertiary hover:text-accent">Dashboard</a>
+                    <svg class="w-4 h-4 text-ink-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                    <a href="{% url 'dashboard:help_index' %}" class="text-ink-tertiary hover:text-accent">Help</a>
+                    {% block breadcrumb %}{% endblock %}
+                </nav>
+            </div>
+
+            <!-- Page content -->
+            <div class="p-8">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+
+    <!-- Accordion script -->
+    <script>
+        document.querySelectorAll('.accordion-trigger').forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const item = trigger.closest('.accordion-item');
+                const content = item.querySelector('.accordion-content');
+                const isOpen = item.classList.contains('open');
+
+                // Close all
+                document.querySelectorAll('.accordion-item').forEach(i => {
+                    i.classList.remove('open');
+                    i.querySelector('.accordion-content').classList.remove('open');
+                });
+
+                // Open clicked if was closed
+                if (!isOpen) {
+                    item.classList.add('open');
+                    content.classList.add('open');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

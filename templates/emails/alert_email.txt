@@ -1,0 +1,19 @@
+🚨 Wijziging Gedetecteerd: {{ target.name }}
+==================================================
+
+Meerkat heeft een belangrijke wijziging gesignaleerd op {{ target.url }}.
+
+TITEL: {{ scan.analysis_title }}
+
+SAMENVATTING:
+{{ scan.analysis_json.summary }}
+
+BELANGRIJKSTE WIJZIGINGEN:
+{% for change in scan.analysis_json.changes %}
+- [{{ change.category }}] (Score: {{ change.impact_score }})
+  {{ change.change_description }}
+{% endfor %}
+
+Bekijk de details in het dashboard: http://127.0.0.1:8000
+
+Scan tijdstip: {{ scan.scanned_at|date:"d-m-Y H:i" }}

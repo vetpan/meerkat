@@ -1,0 +1,295 @@
+{% extends 'dashboard/help/help_base.html' %}
+
+{% block title %}Features{% endblock %}
+
+{% block breadcrumb %}
+<svg class="w-4 h-4 text-ink-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+</svg>
+<span class="text-ink font-medium">Features</span>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl">
+    <!-- Header -->
+    <div class="mb-10">
+        <div
+            class="w-14 h-14 bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+            </svg>
+        </div>
+        <h1 class="text-3xl font-bold text-ink mb-3">Meerkat Features</h1>
+        <p class="text-ink-secondary text-lg">Ontdek alle mogelijkheden van Meerkat voor competitor monitoring.</p>
+    </div>
+
+    <!-- Feature Cards -->
+    <div class="space-y-6 mb-12">
+        <!-- Full-page Screenshots -->
+        <div class="bg-white rounded-2xl border border-border p-6">
+            <div class="flex items-start gap-4">
+                <div
+                    class="w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-ink text-lg mb-2">Full-page Screenshots</h3>
+                    <p class="text-ink-secondary text-sm mb-3">Meerkat maakt volledige screenshots van websites,
+                        inclusief content die buiten het scherm valt. Dit gebeurt met Playwright, dezelfde technologie
+                        die door grote tech-bedrijven wordt gebruikt voor browser automatisering.</p>
+                    <ul class="text-ink-secondary text-sm space-y-1">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Automatische cookie banner verwijdering
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Scrollt automatisch door de hele pagina
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Moderne responsive websites worden correct weergegeven
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Analysis -->
+        <div class="bg-white rounded-2xl border border-border p-6">
+            <div class="flex items-start gap-4">
+                <div
+                    class="w-12 h-12 bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-ink text-lg mb-2">Gemini AI Analyse</h3>
+                    <p class="text-ink-secondary text-sm mb-3">Google's meest geavanceerde AI model analyseert elke
+                        wijziging. De AI begrijpt context, identificeert belangrijke veranderingen en geeft actionable
+                        insights.</p>
+                    <ul class="text-ink-secondary text-sm space-y-1">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Automatische categorisatie van wijzigingen
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Impact score van 1-10 voor prioritering
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Strategisch advies en business implicaties
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Change Detection -->
+        <div class="bg-white rounded-2xl border border-border p-6">
+            <div class="flex items-start gap-4">
+                <div
+                    class="w-12 h-12 bg-gradient-to-br from-green-100 to-emerald-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-ink text-lg mb-2">Slimme Change Detection</h3>
+                    <p class="text-ink-secondary text-sm mb-3">Meerkat detecteert wijzigingen efficiënt met content
+                        hashing. Alleen wanneer er daadwerkelijk iets is veranderd, worden screenshot en AI analyse
+                        uitgevoerd.</p>
+                    <ul class="text-ink-secondary text-sm space-y-1">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Bespaart API-kosten door slim te detecteren
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Real-time notificaties bij wijzigingen
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Historische timeline van alle wijzigingen
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scan Scheduling -->
+        <div class="bg-white rounded-2xl border border-border p-6">
+            <div class="flex items-start gap-4">
+                <div
+                    class="w-12 h-12 bg-gradient-to-br from-rose-100 to-red-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <svg class="w-6 h-6 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-ink text-lg mb-2">Flexibele Planning</h3>
+                    <p class="text-ink-secondary text-sm mb-3">Stel per target in hoe vaak gescand moet worden. Van elke
+                        15 minuten voor critical competitors tot elk uur voor algemene monitoring.</p>
+                    <ul class="text-ink-secondary text-sm space-y-1">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Intervallen van 15, 30 of 60 minuten
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Pauzeer en hervat monitoring op elk moment
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Handmatige scans altijd mogelijk
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pro Features -->
+    <div class="bg-gradient-to-br from-accent/5 to-purple-50 rounded-2xl border border-accent/20 p-6 mb-12">
+        <div class="flex items-center gap-3 mb-4">
+            <div
+                class="w-10 h-10 bg-gradient-to-br from-accent to-purple-600 rounded-xl flex items-center justify-center">
+                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                        d="M5 2a2 2 0 00-2 2v14l3.5-2 3.5 2 3.5-2 3.5 2V4a2 2 0 00-2-2H5zm2.5 3a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm6.207.293a1 1 0 00-1.414 0l-6 6a1 1 0 101.414 1.414l6-6a1 1 0 000-1.414zM12.5 10a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"
+                        clip-rule="evenodd" />
+                </svg>
+            </div>
+            <div>
+                <h3 class="font-semibold text-ink text-lg">Meerkat Pro</h3>
+                <p class="text-ink-secondary text-sm">Unlock enterprise features</p>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4">
+            <div class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clip-rule="evenodd" />
+                </svg>
+                <span class="text-sm text-ink">Onbeperkt aantal targets</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clip-rule="evenodd" />
+                </svg>
+                <span class="text-sm text-ink">5-minuten scan intervallen</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clip-rule="evenodd" />
+                </svg>
+                <span class="text-sm text-ink">1 jaar data retentie</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clip-rule="evenodd" />
+                </svg>
+                <span class="text-sm text-ink">Priority support</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clip-rule="evenodd" />
+                </svg>
+                <span class="text-sm text-ink">PDF rapport exports</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clip-rule="evenodd" />
+                </svg>
+                <span class="text-sm text-ink">API toegang</span>
+            </div>
+        </div>
+
+        <button
+            class="mt-6 bg-accent text-white font-semibold py-2.5 px-6 rounded-xl hover:bg-accent-hover transition-colors">
+            Upgrade naar Pro
+        </button>
+    </div>
+
+    <!-- Coming Soon -->
+    <div class="prose">
+        <h2>Binnenkort beschikbaar</h2>
+        <p>We werken hard aan nieuwe features:</p>
+        <ul>
+            <li><strong>Slack integratie:</strong> Ontvang wijzigingen direct in je Slack channel</li>
+            <li><strong>Email alerts:</strong> Dagelijkse of wekelijkse digest met alle wijzigingen</li>
+            <li><strong>Team collaboration:</strong> Deel targets en inzichten met je team</li>
+            <li><strong>Custom alerts:</strong> Stel triggers in voor specifieke type wijzigingen</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

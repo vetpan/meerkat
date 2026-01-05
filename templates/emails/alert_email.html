@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: sans-serif; color: #333; line-height: 1.6; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: #f87171; color: white; padding: 15px; border-radius: 5px 5px 0 0; }
+        .content { border: 1px solid #ddd; padding: 20px; border-radius: 0 0 5px 5px; }
+        .change-item { background: #f9fafb; padding: 10px; margin-bottom: 10px; border-left: 4px solid #f87171; }
+        .btn { display: inline-block; background: #3b82f6; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-top: 20px; }
+        .footer { font-size: 12px; color: #6b7280; text-align: center; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>🚨 Wijziging Gedetecteerd: {{ target.name }}</h2>
+        </div>
+        <div class="content">
+            <p><strong>Meerkat</strong> heeft een belangrijke wijziging gesignaleerd op <a href="{{ target.url }}">{{ target.url }}</a>.</p>
+            
+            <h3>{{ scan.analysis_title }}</h3>
+            <p>{{ scan.analysis_json.summary }}</p>
+            
+            <h4>Belangrijkste Wijzigingen:</h4>
+            {% for change in scan.analysis_json.changes %}
+            <div class="change-item">
+                <strong>{{ change.category }}</strong> (Score: {{ change.impact_score }})<br>
+                {{ change.change_description }}
+            </div>
+            {% endfor %}
+            
+            <a href="http://127.0.0.1:8000" class="btn">Bekijk in Dashboard</a>
+        </div>
+        <div class="footer">
+            <p>Deze scan is uitgevoerd op {{ scan.scanned_at|date:"d-m-Y H:i" }}</p>
+        </div>
+    </div>
+</body>
+</html>

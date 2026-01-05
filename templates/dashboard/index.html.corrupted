@@ -1,0 +1,2110 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meerkat Competitor Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        surface: { DEFAULT: '#FAFAFA', secondary: '#F5F5F7', card: '#FFFFFF' },
+                        ink: { DEFAULT: '#1D1D1F', secondary: '#6E6E73', tertiary: '#86868B' },
+                        accent: { DEFAULT: '#0066CC', hover: '#0055B3' },
+                        success: { DEFAULT: '#34C759', light: '#E8F9ED' },
+                        danger: { DEFAULT: '#FF3B30', light: '#FFEBE9' },
+                        border: { DEFAULT: '#E5E5E7', light: '#F0F0F2' },
+                    },
+                    borderRadius: { xl: '12px', '2xl': '16px', '3xl': '20px' },
+                    boxShadow: {
+                        soft: '0 1px 3px rgba(0,0,0,0.04)',
+                        card: '0 2px 8px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02)',
+                        elevated: '0 8px 30px rgba(0,0,0,0.08)',
+                        glow: '0 0 40px rgba(0,102,204,0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Premium Transitions */
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Ambient Glow Effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 400px;
+            background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 102, 204, 0.08), transparent);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Resizable columns */
+        .resize-handle {
+            width: 4px;
+            cursor: col-resize;
+            background: transparent;
+            transition: all 0.2s ease;
+            position: relative;
+            z-index: 20;
+        }
+
+        .resize-handle:hover,
+        .resize-handle.active {
+            background: linear-gradient(180deg, transparent, #0066CC, transparent);
+        }
+
+        /* Premium Screenshot styles */
+        .screenshot-collapsed {
+            max-height: 400px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .screenshot-collapsed::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: linear-gradient(to bottom, transparent, #FFFFFF);
+            pointer-events: none;
+        }
+
+        .screenshot-expanded {
+            max-height: none;
+        }
+
+        .expand-btn {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(29, 29, 31, 0.85);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 500;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .expand-btn:hover {
+            background: rgba(29, 29, 31, 0.95);
+            transform: translateY(-1px);
+        }
+
+        /* Premium Info Cards with Glass Effect */
+        .info-card {
+            background: rgba(245, 245, 247, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .info-card:hover {
+            background: rgba(245, 245, 247, 0.9);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .info-card-title {
+            font-size: 10px;
+            font-weight: 600;
+            color: #86868B;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+        }
+
+        .info-card-content {
+            font-size: 13px;
+            color: #1D1D1F;
+            line-height: 1.6;
+        }
+
+        /* Premium Scanning Animation */
+        @keyframes scan-pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: scale(0.98);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        .scanning {
+            animation: scan-pulse 2s ease-in-out infinite;
+        }
+
+        /* Premium Timestamp Badge */
+        .timestamp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            background: rgba(245, 245, 247, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 500;
+            font-family: 'JetBrains Mono', monospace;
+            color: #6E6E73;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .timestamp-btn:hover {
+            background: rgba(245, 245, 247, 1);
+            transform: translateY(-1px);
+        }
+
+        .timestamp-btn.latest {
+            background: rgba(52, 199, 89, 0.12);
+            color: #248A3D;
+            border-color: rgba(52, 199, 89, 0.2);
+        }
+
+        /* Premium Stable Indicator */
+        .stable-since {
+            background: linear-gradient(135deg, rgba(52, 199, 89, 0.08), rgba(52, 199, 89, 0.04));
+            border: 1px solid rgba(52, 199, 89, 0.15);
+            border-radius: 14px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        /* Apple-style Toggle */
+        .toggle-apple {
+            position: relative;
+            width: 44px;
+            height: 26px;
+            background: #E5E5E7;
+            border-radius: 13px;
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
+
+        .toggle-apple.active {
+            background: #34C759;
+        }
+
+        .toggle-apple::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 11px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+            transition: all 0.25s ease;
+        }
+
+        .toggle-apple.active::after {
+            transform: translateX(18px);
+        }
+
+        /* iOS-style Swipe-to-Reveal Actions */
+        .site-item-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            margin-bottom: 4px;
+        }
+
+        .site-item-content {
+            position: relative;
+            z-index: 2;
+            background: var(--surface);
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 12px;
+        }
+
+        .site-item-wrapper.swiped .site-item-content {
+            transform: translateX(-140px);
+        }
+
+        .site-item-actions {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: stretch;
+            z-index: 1;
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .site-item-wrapper.swiped .site-item-actions {
+            transform: translateX(0);
+        }
+
+        .site-action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            padding: 8px;
+            font-size: 10px;
+            font-weight: 500;
+            gap: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .site-action-btn.edit {
+            background: linear-gradient(135deg, #0066CC 0%, #004999 100%);
+            color: white;
+        }
+
+        .site-action-btn.edit:hover {
+            background: linear-gradient(135deg, #0077EE 0%, #0066CC 100%);
+        }
+
+        .site-action-btn.delete {
+            background: linear-gradient(135deg, #FF3B30 0%, #D63030 100%);
+            color: white;
+        }
+
+        .site-action-btn.delete:hover {
+            background: linear-gradient(135deg, #FF4D44 0%, #FF3B30 100%);
+        }
+
+        .site-action-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+
+
+        /* Desktop: Show actions on hover as alternative */
+        @media (hover: hover) {
+            .site-item-hover-actions {
+                position: absolute;
+                right: 8px;
+                top: 50%;
+                transform: translateY(-50%);
+                display: flex;
+                gap: 4px;
+                opacity: 0;
+                transition: opacity 0.2s ease;
+                z-index: 10;
+            }
+
+            .site-item-wrapper:hover .site-item-hover-actions {
+                opacity: 1;
+            }
+
+            .site-item-wrapper.swiped .site-item-hover-actions {
+                opacity: 0;
+            }
+
+            .hover-action-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 28px;
+                height: 28px;
+                border-radius: 8px;
+                border: none;
+                cursor: pointer;
+                transition: all 0.15s ease;
+            }
+
+            .hover-action-btn.edit {
+                background: rgba(0, 102, 204, 0.1);
+                color: #0066CC;
+            }
+
+            .hover-action-btn.edit:hover {
+                background: rgba(0, 102, 204, 0.2);
+                transform: scale(1.05);
+            }
+
+            .hover-action-btn.delete {
+                background: rgba(255, 59, 48, 0.1);
+                color: #FF3B30;
+            }
+
+            .hover-action-btn.delete:hover {
+                background: rgba(255, 59, 48, 0.2);
+                transform: scale(1.05);
+            }
+
+            .hover-action-btn svg {
+                width: 14px;
+                height: 14px;
+            }
+        }
+
+        /* Premium Button Styles */
+        .btn-primary {
+            background: #0066CC;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: #0055B3;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-scan {
+            background: linear-gradient(135deg, #1D1D1F, #2D2D2F);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 12px;
+            letter-spacing: 0.02em;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-scan:hover {
+            background: linear-gradient(135deg, #2D2D2F, #3D3D3F);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Site Item Hover */
+        .site-item {
+            transition: all 0.2s ease;
+            border-radius: 12px;
+        }
+
+        .site-item:hover {
+            background: rgba(0, 0, 0, 0.03);
+        }
+
+        .site-item.active {
+            background: rgba(0, 102, 204, 0.06);
+            border: 1px solid rgba(0, 102, 204, 0.15);
+        }
+
+        /* Premium Modal */
+        .modal-overlay {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(20px);
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.2);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Premium Input */
+        .input-premium {
+            width: 100%;
+            padding: 14px 16px;
+            background: #F5F5F7;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.2s ease;
+        }
+
+        .input-premium:focus {
+            outline: none;
+            background: white;
+            border-color: #0066CC;
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+
+        /* Scan Card */
+        .scan-card {
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .scan-card:hover {
+            border-color: rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #D1D1D6;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #A1A1A6;
+        }
+    </style>
+</head>
+
+<body class="bg-surface h-screen overflow-hidden font-sans">
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+    <div class="flex h-full relative z-10">
+        <!-- LEFT: Sites (280px fixed) -->
+        <div class="w-[280px] bg-white/80 backdrop-blur-xl border-r border-border flex flex-col flex-shrink-0">
+            <!-- Logo Header -->
+            <div class="p-6 border-b border-border/50" style="height: 88px;">
+                <div class="flex items-center space-x-3">
+                    <div class="flex-shrink-0">
+                        <svg class="h-10 w-auto" viewBox="0 0 992 1056" xmlns="http://www.w3.org/2000/svg">
+                            <g transform="translate(0,1056) scale(0.1,-0.1)" fill="#1D1D1F">
+                                <path
+                                    d="M4992 9400 c-188 -50 -335 -179 -427 -373 -58 -124 -57 -112 -65 -777 -4 -338 -10 -642 -14 -675 -9 -95 -25 -346 -42 -665 -8 -162 -24 -446 -35 -630 -11 -184 -24 -416 -29 -515 -6 -99 -14 -252 -19 -340 -6 -88 -15 -254 -21 -370 -6 -115 -18 -312 -26 -436 -8 -125 -14 -237 -14 -250 0 -16 -23 -48 -64 -92 -123 -128 -212 -287 -284 -507 -88 -266 -110 -436 -122 -940 -9 -404 -19 -484 -74 -632 -79 -209 -204 -339 -372 -383 -35 -9 -141 -19 -264 -25 -113 -6 -279 -15 -370 -20 -91 -6 -302 -15 -470 -20 -168 -5 -372 -14 -455 -20 -82 -5 -222 -12 -310 -15 -223 -9 -283 -26 -371 -107 -70 -64 -100 -127 -119 -245 l-7 -43 634 -3 c348 -1 1835 -3 3303 -2 l2670 0 -2 57 c-3 80 -47 170 -116 235 -89 85 -156 109 -512 188 -115 26 -214 51 -219 55 -9 9 57 148 157 335 29 55 83 156 119 225 36 69 91 175 123 235 32 61 97 186 144 280 l86 170 -1 105 c-1 95 -5 117 -43 230 -53 159 -160 375 -299 605 -100 164 -118 205 -90 205 13 0 148 92 184 126 94 90 170 225 205 369 26 105 30 268 10 355 -23 99 -102 342 -158 485 -98 252 -212 534 -248 612 -8 17 -15 33 -15 36 0 3 -13 34 -29 69 -16 35 -52 117 -81 183 -69 160 -118 269 -145 330 -54 118 -75 166 -75 171 0 3 -39 91 -86 197 -47 106 -99 224 -116 262 -17 39 -48 106 -69 150 -20 44 -65 143 -99 220 -34 77 -68 153 -76 169 -25 52 -23 53 114 59 184 7 268 43 383 164 82 86 130 171 150 270 15 73 6 123 -27 154 -24 22 -35 24 -147 27 -144 4 -117 -10 -333 187 -95 87 -166 144 -201 160 -67 32 -185 44 -435 45 l-188 0 0 -82 c0 -46 5 -100 11 -121 19 -68 88 -129 174 -152 17 -5 125 -9 240 -10 206 -1 211 -1 260 -27 28 -14 97 -45 155 -69 132 -54 184 -83 188 -103 4 -18 -41 -141 -68 -191 l-17 -30 -509 -5 c-395 -5 -517 -9 -546 -19 -98 -36 -158 -128 -158 -243 0 -63 3 -70 43 -126 23 -33 65 -93 94 -134 29 -40 80 -113 115 -161 68 -95 215 -245 288 -294 63 -41 203 -108 280 -133 36 -12 101 -26 145 -31 44 -6 94 -13 111 -15 27 -4 35 -12 53 -56 11 -28 21 -55 21 -60 0 -6 7 -24 15 -41 8 -18 32 -81 54 -142 74 -206 169 -460 186 -500 9 -22 44 -116 77 -210 84 -238 102 -303 147 -520 42 -204 51 -293 58 -546 6 -238 -6 -438 -37 -588 -25 -124 -108 -406 -265 -896 -31 -99 -83 -263 -115 -365 -31 -102 -90 -288 -129 -415 -126 -404 -150 -459 -236 -530 -24 -19 -75 -50 -112 -68 -65 -31 -73 -32 -190 -32 -68 0 -126 4 -132 10 -6 7 -3 22 8 45 28 55 81 151 111 200 96 158 367 703 405 815 86 253 71 456 -53 705 -31 63 -58 118 -60 122 -2 4 32 25 75 45 150 72 277 228 332 406 52 170 30 548 -49 837 -73 265 -251 613 -424 831 -12 14 -32 40 -46 59 -85 113 -141 176 -549 625 -30 33 -145 170 -206 247 -15 18 -92 133 -148 218 -78 120 -190 376 -230 525 -35 132 -48 264 -45 470 l3 200 77 7 c90 8 125 24 166 74 54 66 58 145 18 382 -28 165 8 238 131 261 28 6 319 11 657 12 365 1 609 5 612 11 9 15 -43 82 -89 115 -101 71 -67 68 -727 70 -561 2 -599 1 -668 -17z" />
+                            </g>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="text-[15px] font-bold text-ink tracking-tight">Meerkat</div>
+                        <div class="text-[11px] text-ink-tertiary font-medium tracking-wide uppercase">Competitor
+                            Intelligence</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sites List -->
+            <div class="flex-1 overflow-y-auto">
+                <div class="p-5">
+                    <h2 class="text-[10px] font-semibold text-ink-tertiary uppercase tracking-widest mb-4">Monitored
+                        Sites</h2>
+                    <div class="space-y-1">
+                        {% for target in targets %}
+                        <div class="site-item-wrapper" data-target-id="{{ target.id }}"
+                            onclick="handleSiteClick(event, {{ target.id }})">
+                            <!-- Swipe Actions (behind the content) -->
+                            <div class="site-item-actions">
+                                <button class="site-action-btn edit"
+                                    onclick="event.stopPropagation(); openEditTargetModal({{ target.id }}, '{{ target.name|escapejs }}', '{{ target.url|escapejs }}', {{ target.interval }})">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                    </svg>
+                                    <span>Wijzig</span>
+                                </button>
+                                <button class="site-action-btn delete"
+                                    onclick="event.stopPropagation(); confirmDeleteTarget({{ target.id }}, '{{ target.name|escapejs }}')">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                    <span>Verwijder</span>
+                                </button>
+                            </div>
+
+                            <!-- Main Content (slides to reveal actions) -->
+                            <div
+                                class="site-item-content site-item p-3 {% if selected_target and selected_target.id == target.id %}active{% endif %}">
+                                <a href="?target={{ target.id }}" class="flex items-center space-x-3"
+                                    onclick="event.stopPropagation();">
+                                    <div class="relative flex-shrink-0">
+                                        <div
+                                            class="w-2 h-2 rounded-full {% if target.status == 'active' %}bg-success{% else %}bg-danger{% endif %}">
+                                        </div>
+                                    </div>
+                                    <div class="flex-1 min-w-0 pr-16">
+                                        <div class="flex items-center gap-2">
+                                            <p class="font-medium text-ink text-[13px] truncate">{{ target.name }}</p>
+                                            <span
+                                                class="text-[10px] px-1.5 py-0.5 bg-surface-secondary text-ink-tertiary rounded-md font-mono">{{
+                                                target.interval }}m</span>
+                                        </div>
+                                        <p class="text-[11px] text-ink-tertiary truncate mt-0.5">{{
+                                            target.url|slice:":35" }}...</p>
+                                    </div>
+                                </a>
+
+                                <!-- Desktop hover actions -->
+                                <div class="site-item-hover-actions">
+                                    <button class="hover-action-btn edit"
+                                        onclick="event.stopPropagation(); openEditTargetModal({{ target.id }}, '{{ target.name|escapejs }}', '{{ target.url|escapejs }}', {{ target.interval }})"
+                                        title="Wijzigen">
+                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                        </svg>
+                                    </button>
+                                    <button class="hover-action-btn delete"
+                                        onclick="event.stopPropagation(); confirmDeleteTarget({{ target.id }}, '{{ target.name|escapejs }}')"
+                                        title="Verwijderen">
+                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                        </svg>
+                                    </button>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="text-center py-8">
+                            <p class="text-[13px] text-ink-tertiary">Nog geen sites toegevoegd</p>
+                            <p class="text-[11px] text-ink-tertiary/60 mt-1">Klik hieronder om te starten</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Matrix Link -->
+            <div class="px-5 pb-1">
+                <a href="{% url 'dashboard:matrix' %}"
+                    class="w-full flex items-center gap-2 p-2.5 text-ink-tertiary hover:text-ink hover:bg-surface-secondary rounded-xl transition-all text-left">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
+                    </svg>
+                    <span class="text-[12px] font-medium">Concurrentie Matrix</span>
+                </a>
+            </div>
+
+            <!-- Help Link -->
+            <div class="px-5 pb-3">
+                <a href="{% url 'dashboard:help_index' %}"
+                    class="w-full flex items-center gap-2 p-2.5 text-ink-tertiary hover:text-ink hover:bg-surface-secondary rounded-xl transition-all text-left">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span class="text-[12px] font-medium">Hulp & Documentatie</span>
+                </a>
+            </div>
+
+            <!-- Add Button -->
+            <div class="p-5 pt-3 border-t border-border/50">
+                <button onclick="openAddTargetModal()"
+                    class="btn-primary w-full flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                    <span>Nieuwe Site</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- MIDDLE: AI Analyse (resizable) -->
+        <div id="middle-panel" class="flex flex-col bg-surface" style="width: 50%; min-width: 300px;">
+            {% if selected_target %}
+            <!-- Header -->
+            <div class="bg-white/80 backdrop-blur-xl border-b border-border/50 px-6 py-5 flex items-center"
+                style="height: 88px;">
+                <div class="flex items-center justify-between w-full">
+                    <div class="flex items-center space-x-4">
+                        <h2 class="text-xl font-semibold text-ink tracking-tight">{{ selected_target.name }}</h2>
+                        <div class="toggle-apple {% if selected_target.status == 'active' %}active{% endif %}"
+                            onclick="toggleTarget({{ selected_target.id }}, !this.classList.contains('active'))"></div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div id="countdown-container"
+                            class="flex items-center gap-2 {% if not selected_target.status == 'active' or not selected_target.last_scan_at %}hidden{% endif %}">
+                            <span class="text-[10px] text-ink-tertiary font-medium uppercase tracking-wider">Volgende
+                                scan</span>
+                            <span id="countdown"
+                                class="text-[12px] font-mono bg-surface-secondary px-3 py-1.5 rounded-lg text-ink-secondary font-medium tracking-wide">--:--</span>
+                        </div>
+                        <button id="scan-btn" onclick="startManualScan({{ selected_target.id }})" class="btn-scan">
+                            <span id="scan-btn-text">SCAN</span>
+                            <svg id="scan-btn-spinner" class="hidden w-4 h-4 animate-spin" fill="none"
+                                viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Scan Progress Panel - Enhanced with detailed info -->
+                <div id="scan-progress-panel"
+                    class="hidden bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 border border-blue-200/50 rounded-2xl p-5 mt-4 shadow-lg backdrop-blur-sm">
+
+                    <!-- Header -->
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="relative">
+                                <div class="w-3 h-3 bg-blue-500 rounded-full animate-ping absolute"></div>
+                                <div class="w-3 h-3 bg-blue-600 rounded-full relative"></div>
+                            </div>
+                            <div>
+                                <span id="progress-message" class="text-sm font-semibold text-slate-800">Scan wordt
+                                    gestart...</span>
+                                <p id="progress-detail" class="text-[11px] text-slate-500 mt-0.5">Even geduld terwijl we
+                                    de website analyseren</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span id="progress-percent"
+                                class="text-sm font-bold font-mono text-blue-600 bg-blue-100 px-3 py-1 rounded-full">0%</span>
+                        </div>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="h-2 bg-slate-200/50 rounded-full overflow-hidden mb-5 shadow-inner">
+                        <div id="progress-bar"
+                            class="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-full transition-all duration-700 ease-out relative overflow-hidden"
+                            style="width: 0%">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step Cards -->
+                    <div class="grid grid-cols-4 gap-3 mb-4">
+                        <!-- Step 1: Scout -->
+                        <div id="step-scout"
+                            class="step-card bg-white/60 rounded-xl p-3 border border-slate-200/50 transition-all duration-300">
+                            <div class="flex items-center gap-2 mb-2">
+                                <div
+                                    class="step-indicator w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center bg-white text-[10px] font-bold text-slate-400">
+                                    1
+                                </div>
+                                <span class="text-[11px] font-semibold text-slate-600">Detecteren</span>
+                            </div>
+                            <p class="text-[9px] text-slate-400 leading-relaxed">Controleren op wijzigingen via content
+                                hash</p>
+                        </div>
+
+                        <!-- Step 2: Capture -->
+                        <div id="step-capture"
+                            class="step-card bg-white/60 rounded-xl p-3 border border-slate-200/50 transition-all duration-300">
+                            <div class="flex items-center gap-2 mb-2">
+                                <div
+                                    class="step-indicator w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center bg-white text-[10px] font-bold text-slate-400">
+                                    2
+                                </div>
+                                <span class="text-[11px] font-semibold text-slate-600">Screenshot</span>
+                            </div>
+                            <p class="text-[9px] text-slate-400 leading-relaxed">Full-page screenshot maken met
+                                Playwright</p>
+                        </div>
+
+                        <!-- Step 3: Gemini -->
+                        <div id="step-gemini"
+                            class="step-card bg-white/60 rounded-xl p-3 border border-slate-200/50 transition-all duration-300">
+                            <div class="flex items-center gap-2 mb-2">
+                                <div
+                                    class="step-indicator w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center bg-white text-[10px] font-bold text-slate-400">
+                                    3
+                                </div>
+                                <span class="text-[11px] font-semibold text-slate-600">AI Analyse</span>
+                            </div>
+                            <p class="text-[9px] text-slate-400 leading-relaxed">Gemini AI vergelijkt met vorige versie
+                            </p>
+                        </div>
+
+                        <!-- Step 4: Saving -->
+                        <div id="step-saving"
+                            class="step-card bg-white/60 rounded-xl p-3 border border-slate-200/50 transition-all duration-300">
+                            <div class="flex items-center gap-2 mb-2">
+                                <div
+                                    class="step-indicator w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center bg-white text-[10px] font-bold text-slate-400">
+                                    4
+                                </div>
+                                <span class="text-[11px] font-semibold text-slate-600">Opslaan</span>
+                            </div>
+                            <p class="text-[9px] text-slate-400 leading-relaxed">Resultaten opslaan in database</p>
+                        </div>
+                    </div>
+
+                    <!-- Activity Log -->
+                    <div id="activity-log"
+                        class="bg-slate-900/90 rounded-xl p-3 font-mono text-[10px] max-h-24 overflow-y-auto">
+                        <div class="text-slate-500">$ meerkat scan --target="{{ selected_target.name }}"</div>
+                        <div id="log-lines" class="text-green-400 space-y-0.5">
+                            <div class="log-line">→ Initialiseren...</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Content -->
+            <div class="flex-1 overflow-y-auto p-6">
+                {% if scans %}
+                <!-- Check if all scans are stable - show consolidated message -->
+                {% with latest_scan=scans.0 %}
+                <!-- Unified Status Bar - Animates between Stable and Scanning -->
+                <div id="status-bar-container" class="mb-6 transition-all duration-500 ease-out">
+                    <!-- Stable State -->
+                    <div id="status-stable" class="stable-since transition-all duration-500 ease-out">
+                        <svg class="w-5 h-5 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <div>
+                            <p class="text-[13px] font-semibold text-success">Stabiel sinds {{
+                                latest_scan.scanned_at|timesince }}</p>
+                            <p class="text-[11px] text-success/70">Geen significante wijzigingen gedetecteerd</p>
+                        </div>
+                    </div>
+
+                    <!-- Scanning State - Hidden by default, shown during scan -->
+                    <div id="status-scanning"
+                        class="hidden opacity-0 transform translate-y-2 transition-all duration-500 ease-out bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 rounded-2xl p-4 border border-blue-200/50 shadow-lg">
+                        <!-- Header with pulse -->
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="relative">
+                                    <div class="w-3 h-3 bg-blue-500 rounded-full animate-ping absolute"></div>
+                                    <div class="w-3 h-3 bg-blue-600 rounded-full relative"></div>
+                                </div>
+                                <div>
+                                    <p id="scan-status-title" class="text-sm font-semibold text-slate-800">Scan
+                                        starten...</p>
+                                    <p id="scan-status-detail" class="text-[11px] text-slate-500">Even geduld...</p>
+                                </div>
+                            </div>
+                            <span id="scan-status-percent"
+                                class="text-sm font-bold font-mono text-blue-600 bg-blue-100 px-3 py-1 rounded-full">0%</span>
+                        </div>
+
+                        <!-- Progress bar -->
+                        <div class="h-1.5 bg-slate-200/50 rounded-full overflow-hidden mb-3">
+                            <div id="scan-status-bar"
+                                class="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-full transition-all duration-700 ease-out"
+                                style="width: 0%"></div>
+                        </div>
+
+                        <!-- Step indicators inline -->
+                        <div class="flex items-center justify-between text-[10px]">
+                            <div id="inline-step-1"
+                                class="flex items-center gap-1.5 text-slate-400 transition-all duration-300">
+                                <div
+                                    class="step-dot w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center bg-white text-[9px] font-bold">
+                                    1</div>
+                                <span>Detecteren</span>
+                            </div>
+                            <div class="flex-1 h-px bg-slate-200 mx-2"></div>
+                            <div id="inline-step-2"
+                                class="flex items-center gap-1.5 text-slate-400 transition-all duration-300">
+                                <div
+                                    class="step-dot w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center bg-white text-[9px] font-bold">
+                                    2</div>
+                                <span>Screenshot</span>
+                            </div>
+                            <div class="flex-1 h-px bg-slate-200 mx-2"></div>
+                            <div id="inline-step-3"
+                                class="flex items-center gap-1.5 text-slate-400 transition-all duration-300">
+                                <div
+                                    class="step-dot w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center bg-white text-[9px] font-bold">
+                                    3</div>
+                                <span>AI Analyse</span>
+                            </div>
+                            <div class="flex-1 h-px bg-slate-200 mx-2"></div>
+                            <div id="inline-step-4"
+                                class="flex items-center gap-1.5 text-slate-400 transition-all duration-300">
+                                <div
+                                    class="step-dot w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center bg-white text-[9px] font-bold">
+                                    4</div>
+                                <span>Opslaan</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% endwith %}
+
+
+                <div class="space-y-4">
+                    {% for scan in scans %}
+                    <div class="scan-card">
+                        <!-- Scan Header -->
+                        <div class="px-5 py-4 border-b border-border/50 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span
+                                    class="text-[11px] font-semibold uppercase tracking-wide {% if scan.analysis_json.type == 'critical' %}text-danger{% elif scan.analysis_json.type == 'baseline' %}text-accent{% else %}text-success{% endif %}">
+                                    {% if scan.analysis_json.type == 'critical' %}⚠️ Wijziging gesignaleerd{% elif
+                                    scan.analysis_json.type == 'baseline' %}📊 Nulmeting{% else %}✓ Stabiel{% endif %}
+                                </span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-[10px] text-ink-tertiary font-mono">{{ scan.scanned_at|date:"d M H:i"
+                                    }}</span>
+                                <button onclick="deleteScan({{ scan.id }})"
+                                    class="p-1.5 rounded-lg text-ink-tertiary hover:text-danger hover:bg-danger/10 transition-all"
+                                    title="Verwijder deze scan">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        {% if scan.analysis_json %}
+                        <div class="p-5">
+                            <!-- Title -->
+                            {% if scan.analysis_json.title %}
+                            <h4 class="font-semibold text-ink text-[14px] mb-3">{{ scan.analysis_json.title }}</h4>
+                            {% endif %}
+
+                            <!-- Summary -->
+                            {% if scan.analysis_json.summary %}
+                            <div class="text-[12px] text-ink-secondary mb-4 leading-relaxed prose prose-sm max-w-none markdown-content"
+                                data-content="{{ scan.analysis_json.summary|escapejs }}">
+                            </div>
+                            {% endif %}
+
+                            <!-- Baseline items -->
+                            {% if scan.analysis_json.baseline %}
+                            <div class="space-y-3">
+                                {% for item in scan.analysis_json.baseline %}
+                                <div class="info-card">
+                                    <div class="info-card-title">{{ item.category }}</div>
+                                    <div class="info-card-content">{{ item.status|truncatewords:20 }}</div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+
+                            <!-- Changes - Before/After Display -->
+                            {% if scan.analysis_json.changes %}
+                            <div class="space-y-4">
+                                {% for change in scan.analysis_json.changes %}
+                                <div
+                                    class="bg-white rounded-xl border {% if change.impact_score >= 7 %}border-danger/30{% else %}border-border{% endif %} overflow-hidden">
+                                    <!-- Header -->
+                                    <div
+                                        class="flex items-center justify-between px-4 py-2.5 bg-surface border-b border-border/50">
+                                        <div class="flex items-center gap-2">
+                                            <span
+                                                class="text-[10px] font-bold uppercase tracking-wide {% if change.impact_score >= 7 %}text-danger{% else %}text-accent{% endif %}">{{
+                                                change.category }}</span>
+                                            <span
+                                                class="text-[10px] font-bold font-mono {% if change.impact_score >= 7 %}bg-danger/10 text-danger{% else %}bg-accent/10 text-accent{% endif %} px-2 py-0.5 rounded">IMPACT
+                                                {{ change.impact_score }}/10</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Before/After Comparison -->
+                                    {% if change.before_value and change.after_value %}
+                                    <div class="grid grid-cols-2 divide-x divide-border">
+                                        <!-- Before (Voorheen) -->
+                                        <div class="p-4 bg-red-50/40">
+                                            <div class="flex items-center gap-1.5 mb-2">
+                                                <svg class="w-3.5 h-3.5 text-red-500" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                                                </svg>
+                                                <span
+                                                    class="text-[10px] font-bold uppercase tracking-wide text-red-600">Voorheen</span>
+                                            </div>
+                                            <p class="text-[12px] text-ink-secondary leading-relaxed">{{
+                                                change.before_value }}</p>
+                                        </div>
+                                        <!-- After (Nu) -->
+                                        <div class="p-4 bg-green-50/40">
+                                            <div class="flex items-center gap-1.5 mb-2">
+                                                <svg class="w-3.5 h-3.5 text-green-600" fill="none"
+                                                    stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                                </svg>
+                                                <span
+                                                    class="text-[10px] font-bold uppercase tracking-wide text-green-700">Nu</span>
+                                            </div>
+                                            <p class="text-[12px] text-ink font-medium leading-relaxed">{{
+                                                change.after_value }}</p>
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    <!-- Legacy format: single description -->
+                                    <div class="p-4">
+                                        <p class="text-[13px] text-ink leading-relaxed">{{ change.change_description }}
+                                        </p>
+                                    </div>
+                                </div>
+                                {% endif %}
+
+                                <!-- Business Implication -->
+                                {% if change.business_implication %}
+                                <div class="px-4 py-3 bg-amber-50/50 border-t border-amber-200/30">
+                                    <div class="flex items-start gap-2">
+                                        <svg class="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <p class="text-[11px] text-amber-800 leading-relaxed">
+                                            <strong>Impact:</strong> {{ change.business_implication }}
+                                        </p>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <!-- Advice Button -->
+                        {% if scan.analysis_json.advice %}
+                        <div class="mt-5">
+                            <button onclick="toggleAdvice({{ scan.id }})"
+                                class="text-[11px] text-accent hover:text-accent-hover font-medium flex items-center gap-1.5 px-3 py-2 bg-accent/5 rounded-lg hover:bg-accent/10 transition-all">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                </svg>
+                                Bekijk advies
+                            </button>
+                            <div id="advice-{{ scan.id }}"
+                                class="hidden mt-3 p-4 bg-accent/5 rounded-xl border border-accent/10">
+                                <div class="text-[12px] text-ink-secondary leading-relaxed markdown-content"
+                                    data-content="{{ scan.analysis_json.advice|escapejs }}">
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <!-- Scanning state -->
+            <div id="scanning-indicator" class="flex flex-col items-center justify-center h-full">
+                <div class="scanning">
+                    <svg class="w-10 h-10 text-accent animate-spin" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                        </circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z">
+                        </path>
+                    </svg>
+                </div>
+                <p class="text-ink font-medium mt-4 text-[14px]">Eerste scan bezig...</p>
+                <p class="text-ink-tertiary text-[12px] mt-1">±30 seconden</p>
+            </div>
+            {% endif %}
+        </div>
+        {% else %}
+        <div class="flex items-center justify-center h-full">
+            <div class="text-center">
+                <svg class="w-12 h-12 mx-auto text-ink-tertiary/30 mb-3" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                <p class="text-ink-tertiary text-[13px]">Selecteer een site om te beginnen</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Resize Handle -->
+    <div id="resize-handle" class="resize-handle"></div>
+
+    <!-- RIGHT: Screenshots -->
+    <div id="right-panel" class="flex-1 bg-surface-card border-l border-border flex flex-col" style="min-width: 20%;">
+        {% if selected_target %}
+        <!-- Header -->
+        <div class="px-6 py-5 border-b border-border/50 flex items-center justify-between bg-white/80 backdrop-blur-xl"
+            style="height: 88px;">
+            <h3 class="font-semibold text-ink text-[15px]">Screenshots</h3>
+            {% if scans %}
+            <div class="timestamp-btn latest" onclick="scrollToLatest()">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                        clip-rule="evenodd" />
+                </svg>
+                <span>{{ scans.0.scanned_at|date:"d M H:i" }}</span>
+                <span class="text-success">● Live</span>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Screenshots Stack -->
+        <div id="screenshots-container" class="flex-1 overflow-y-auto p-6 space-y-4">
+            {% if scans %}
+            {% for scan in scans %}
+            {% if scan.screenshot_path %}
+            <div class="screenshot-card bg-surface rounded-2xl border border-border overflow-hidden shadow-card"
+                id="screenshot-{{ scan.id }}">
+                <div
+                    class="bg-surface-secondary/80 px-4 py-3 border-b border-border/50 flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="flex space-x-1.5">
+                            <div class="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
+                            <div class="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
+                            <div class="w-3 h-3 rounded-full bg-[#27C93F]"></div>
+                        </div>
+                        <span class="text-[10px] text-ink-tertiary font-mono truncate max-w-[150px]">{{
+                            selected_target.url|slice:":30" }}</span>
+                    </div>
+                    <span class="text-[10px] text-ink-tertiary font-mono">{{ scan.scanned_at|date:"d M H:i" }}</span>
+                </div>
+                <div class="screenshot-wrapper relative screenshot-collapsed" id="screenshot-wrapper-{{ scan.id }}">
+                    <img src="/media/{{ scan.screenshot_path }}" alt="Screenshot" loading="lazy" class="w-full">
+                    <div class="expand-btn" onclick="toggleScreenshot({{ scan.id }})">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                        </svg>
+                        <span id="expand-text-{{ scan.id }}">Uitklappen</span>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% else %}
+            <div class="flex flex-col items-center justify-center h-full text-center">
+                <svg class="w-12 h-12 text-ink-tertiary/30 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <p class="text-ink-secondary text-[13px] font-medium">Nog geen screenshots</p>
+                <p class="text-ink-tertiary text-[11px] mt-1">Start een scan om te beginnen</p>
+            </div>
+            {% endif %}
+        </div>
+        {% else %}
+        <div class="flex items-center justify-center h-full">
+            <p class="text-gray-500">Selecteer een site</p>
+        </div>
+        {% endif %}
+    </div>
+    </div>
+
+    <!-- Add Target Modal -->
+    <div id="addTargetModal" class="hidden fixed inset-0 modal-overlay flex items-center justify-center z-50">
+        <div class="modal-content p-8 w-[420px]">
+            <h3 class="text-xl font-semibold text-ink mb-6">Nieuwe Site Toevoegen</h3>
+            <form onsubmit="createTarget(event)">
+                <div class="mb-5">
+                    <label class="block text-[13px] font-medium text-ink-secondary mb-2">URL</label>
+                    <input type="text" id="add-url" required class="input-premium" placeholder="ziggo.nl/internet"
+                        oninput="autoFillName(this.value)">
+                    <p class="text-[11px] text-ink-tertiary mt-2">Voer de URL in die je wilt monitoren</p>
+                </div>
+                <div class="mb-5">
+                    <label class="block text-[13px] font-medium text-ink-secondary mb-2">Naam</label>
+                    <input type="text" id="add-name" required class="input-premium"
+                        placeholder="Wordt automatisch ingevuld">
+                </div>
+                <div class="mb-6">
+                    <label class="block text-[13px] font-medium text-ink-secondary mb-2">Scan Interval</label>
+                    <select id="add-interval" class="input-premium cursor-pointer">
+                        <option value="5">Elke 5 minuten</option>
+                        <option value="15" selected>Elke 15 minuten</option>
+                        <option value="30">Elke 30 minuten</option>
+                        <option value="60">Elk uur</option>
+                    </select>
+                </div>
+                <div class="flex gap-3">
+                    <button type="submit" id="add-target-btn"
+                        class="btn-primary flex-1 flex items-center justify-center gap-2">
+                        <span>Toevoegen & Scannen</span>
+                        <svg id="add-target-spinner" class="hidden w-4 h-4 animate-spin" fill="none"
+                            viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                            </circle>
+                            <path class="opacity-75" fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                        </svg>
+                    </button>
+                    <button type="button" onclick="closeAddTargetModal()"
+                        class="px-5 py-2.5 text-ink-secondary hover:text-ink hover:bg-surface-secondary rounded-xl font-medium text-[13px] transition-all">
+                        Annuleer
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Target Modal -->
+    <div id="editTargetModal" class="hidden fixed inset-0 modal-overlay flex items-center justify-center z-50">
+        <div class="modal-content p-8 w-[420px]">
+            <h3 class="text-xl font-semibold text-ink mb-6">Site Bewerken</h3>
+            <form onsubmit="saveTargetEdit(event)">
+                <input type="hidden" id="edit-target-id">
+                <div class="mb-5">
+                    <label class="block text-[13px] font-medium text-ink-secondary mb-2">URL</label>
+                    <input type="text" id="edit-url" required class="input-premium">
+                </div>
+                <div class="mb-5">
+                    <label class="block text-[13px] font-medium text-ink-secondary mb-2">Naam</label>
+                    <input type="text" id="edit-name" required class="input-premium">
+                </div>
+                <div class="mb-6">
+                    <label class="block text-[13px] font-medium text-ink-secondary mb-2">Scan Interval</label>
+                    <select id="edit-interval" class="input-premium cursor-pointer">
+                        <option value="5">Elke 5 minuten</option>
+                        <option value="15">Elke 15 minuten</option>
+                        <option value="30">Elke 30 minuten</option>
+                        <option value="60">Elk uur</option>
+                    </select>
+                </div>
+                <div class="flex justify-between items-center gap-3">
+                    <button type="button" onclick="deleteTarget()"
+                        class="px-4 py-2.5 text-danger hover:bg-danger-light rounded-xl font-medium text-[13px] transition-all">
+                        Verwijderen
+                    </button>
+                    <div class="flex gap-3">
+                        <button type="button" onclick="closeEditTargetModal()"
+                            class="px-5 py-2.5 text-ink-secondary hover:text-ink hover:bg-surface-secondary rounded-xl font-medium text-[13px] transition-all">
+                            Annuleer
+                        </button>
+                        <button type="submit" class="btn-primary">Opslaan</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- FAQ Modal -->
+    <div id="faqModal" class="hidden fixed inset-0 modal-overlay flex items-center justify-center z-50 overflow-y-auto">
+        <div class="modal-content p-8 w-full max-w-2xl m-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-semibold text-ink">Hulp & FAQ</h3>
+                <button onclick="closeFaqModal()"
+                    class="text-ink-tertiary hover:text-ink p-2 hover:bg-surface-secondary rounded-lg transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <p class="text-ink-tertiary text-[13px] mb-6">Een uitgebreide gids voor alle Meerkat features</p>
+            <div class="space-y-3">
+                <details class="group border border-border rounded-xl overflow-hidden">
+                    <summary
+                        class="flex justify-between items-center font-medium cursor-pointer p-4 text-accent hover:bg-surface-secondary transition-colors text-[14px]">
+                        <span>Wat is nieuw in Meerkat 2</span>
+                        <svg class="w-4 h-4 transition group-open:rotate-180" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </summary>
+                    <p class="text-ink-secondary px-4 pb-4 text-[13px] leading-relaxed">Meerkat 2 introduceert
+                        AI-aangedreven analyse, snellere scanintervallen en een vernieuwd dashboard voor betere
+                        bruikbaarheid.</p>
+                </details>
+                <details class="group border border-border rounded-xl overflow-hidden">
+                    <summary
+                        class="flex justify-between items-center font-medium cursor-pointer p-4 text-accent hover:bg-surface-secondary transition-colors text-[14px]">
+                        <span>Targets monitoren</span>
+                        <svg class="w-4 h-4 transition group-open:rotate-180" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </summary>
+                    <p class="text-ink-secondary px-4 pb-4 text-[13px] leading-relaxed">Leer hoe je nieuwe
+                        concurrent-sites toevoegt, aangepaste scanintervallen (15, 30, 60 min) instelt en je
+                        targetlijst
+                        beheert.</p>
+                </details>
+                <details class="group border border-border rounded-xl overflow-hidden">
+                    <summary
+                        class="flex justify-between items-center font-medium cursor-pointer p-4 text-accent hover:bg-surface-secondary transition-colors text-[14px]">
+                        <span>Meerkat Pro</span>
+                        <svg class="w-4 h-4 transition group-open:rotate-180" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </summary>
+                    <p class="text-ink-secondary px-4 pb-4 text-[13px] leading-relaxed">Pro-functies omvatten
+                        onbeperkte
+                        targets, prioriteitsondersteuning en historische gegevensopslag tot 1 jaar.</p>
+                </details>
+                <details class="group border border-border rounded-xl overflow-hidden">
+                    <summary
+                        class="flex justify-between items-center font-medium cursor-pointer p-4 text-accent hover:bg-surface-secondary transition-colors text-[14px]">
+                        <span>Analyse rapporten</span>
+                        <svg class="w-4 h-4 transition group-open:rotate-180" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </summary>
+                    <p class="text-ink-secondary px-4 pb-4 text-[13px] leading-relaxed">Genereer PDF-rapporten van
+                        de
+                        wijzigingen van je concurrenten, inclusief screenshot-vergelijkingen en Gemini
+                        AI-samenvattingen.</p>
+                </details>
+                <details class="group border border-border rounded-xl overflow-hidden">
+                    <summary
+                        class="flex justify-between items-center font-medium cursor-pointer p-4 text-accent hover:bg-surface-secondary transition-colors text-[14px]">
+                        <span>Sites importeren</span>
+                        <svg class="w-4 h-4 transition group-open:rotate-180" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </summary>
+                    <p class="text-ink-secondary px-4 pb-4 text-[13px] leading-relaxed">Importeer targets in bulk
+                        met
+                        CSV-bestanden. Zorg dat je URL-lijst correct is opgemaakt voor eenvoudige migratie.</p>
+                </details>
+            </div>
+            <div class="mt-8 pt-6 border-t border-border">
+                <button onclick="closeFaqModal()" class="btn-primary w-full">Sluiten</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // CSRF Token
+        function getCsrfToken() {
+            return document.querySelector('[name=csrfmiddlewaretoken]').value;
+        }
+
+        // Auto-fill name from URL
+        function autoFillName(url) {
+            if (!url) return;
+            let domain = url.replace(/^(https?:\/\/)?(www\.)?/, '');
+            let parts = domain.split(/[\/\.]/);
+            let name = parts[0];
+            if (name) {
+                name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+                document.getElementById('add-name').value = name;
+            }
+        }
+
+        // Normalize URL
+        function normalizeUrl(url) {
+            url = url.trim();
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                if (!url.startsWith('www.')) {
+                    url = 'https://www.' + url;
+                } else {
+                    url = 'https://' + url;
+                }
+            }
+            return url;
+        }
+
+        // Modal functions
+        function openAddTargetModal() {
+            document.getElementById('add-url').value = '';
+            document.getElementById('add-name').value = '';
+            document.getElementById('addTargetModal').classList.remove('hidden');
+            document.getElementById('add-url').focus();
+        }
+
+        function closeAddTargetModal() {
+            document.getElementById('addTargetModal').classList.add('hidden');
+        }
+
+        function openEditTargetModal(id, name, url, interval) {
+            document.getElementById('edit-target-id').value = id;
+            document.getElementById('edit-name').value = name;
+            document.getElementById('edit-url').value = url;
+            document.getElementById('edit-interval').value = interval;
+            document.getElementById('editTargetModal').classList.remove('hidden');
+        }
+
+        function closeEditTargetModal() {
+            document.getElementById('editTargetModal').classList.add('hidden');
+        }
+
+        function openFaqModal() {
+            document.getElementById('faqModal').classList.remove('hidden');
+        }
+
+        function closeFaqModal() {
+            document.getElementById('faqModal').classList.add('hidden');
+        }
+
+        // Create target and start scan with visible progress
+        function createTarget(event) {
+            event.preventDefault();
+            const name = document.getElementById('add-name').value;
+            const url = normalizeUrl(document.getElementById('add-url').value);
+            const interval = document.getElementById('add-interval').value;
+
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('url', url);
+            formData.append('interval', interval);
+
+            // UX: Disable button and show spinner
+            const btn = document.getElementById('add-target-btn');
+            const spinner = document.getElementById('add-target-spinner');
+            btn.disabled = true;
+            btn.classList.add('opacity-75', 'cursor-not-allowed');
+            spinner.classList.remove('hidden');
+
+            fetch('/api/targets/create/', {
+                method: 'POST',
+                headers: { 'X-CSRFToken': getCsrfToken() },
+                body: formData
+            }).then(r => r.json()).then(data => {
+                if (data.success) {
+                    // Close modal and show progress instead of redirecting
+                    closeAddTargetModal();
+
+                    // Show scan progress overlay
+                    showNewSiteScanProgress(data.id, name);
+                } else {
+                    // Reset UX
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-75', 'cursor-not-allowed');
+                    spinner.classList.add('hidden');
+                    alert(data.error || 'Er ging iets mis');
+                }
+            }).catch(() => {
+                // Reset UX on network error
+                btn.disabled = false;
+                btn.classList.remove('opacity-75', 'cursor-not-allowed');
+                spinner.classList.add('hidden');
+                alert('Netwerkfout. Probeer het opnieuw.');
+            });
+        }
+
+        // Show full-screen scan progress for new sites
+        function showNewSiteScanProgress(targetId, targetName) {
+            // Create overlay with scan progress
+            const overlay = document.createElement('div');
+            overlay.id = 'new-site-progress-overlay';
+            overlay.className = 'fixed inset-0 z-50 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center';
+            overlay.innerHTML = `
+                <div class="w-full max-w-2xl mx-4">
+                    <!-- Header -->
+                    <div class="text-center mb-8">
+                        <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 mb-4">
+                            <svg class="w-10 h-10 text-white animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                        <h2 class="text-2xl font-bold text-white mb-2">Nulmeting: ${targetName}</h2>
+                        <p class="text-slate-400">De eerste analyse van de website wordt uitgevoerd</p>
+                    </div>
+                    
+                    <!-- Progress Card -->
+                    <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/10">
+                        <!-- Progress Bar -->
+                        <div class="mb-6">
+                            <div class="flex items-center justify-between mb-2">
+                                <span id="new-site-status" class="text-white font-medium">Starten...</span>
+                                <span id="new-site-percent" class="text-blue-400 font-mono font-bold">0%</span>
+                            </div>
+                            <div class="h-3 bg-slate-700/50 rounded-full overflow-hidden">
+                                <div id="new-site-bar" class="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-full transition-all duration-700 ease-out" style="width: 0%"></div>
+                            </div>
+                            <p id="new-site-detail" class="text-slate-500 text-sm mt-2">Verbinding maken met website...</p>
+                        </div>
+                        
+                        <!-- Steps -->
+                        <div class="grid grid-cols-4 gap-4">
+                            <div id="new-step-1" class="text-center">
+                                <div class="w-12 h-12 mx-auto rounded-full border-2 border-slate-600 bg-slate-800 flex items-center justify-center mb-2 transition-all duration-300">
+                                    <span class="text-slate-500 font-bold text-sm">1</span>
+                                </div>
+                                <span class="text-slate-500 text-xs font-medium">Detecteren</span>
+                            </div>
+                            <div id="new-step-2" class="text-center">
+                                <div class="w-12 h-12 mx-auto rounded-full border-2 border-slate-600 bg-slate-800 flex items-center justify-center mb-2 transition-all duration-300">
+                                    <span class="text-slate-500 font-bold text-sm">2</span>
+                                </div>
+                                <span class="text-slate-500 text-xs font-medium">Screenshot</span>
+                            </div>
+                            <div id="new-step-3" class="text-center">
+                                <div class="w-12 h-12 mx-auto rounded-full border-2 border-slate-600 bg-slate-800 flex items-center justify-center mb-2 transition-all duration-300">
+                                    <span class="text-slate-500 font-bold text-sm">3</span>
+                                </div>
+                                <span class="text-slate-500 text-xs font-medium">AI Analyse</span>
+                            </div>
+                            <div id="new-step-4" class="text-center">
+                                <div class="w-12 h-12 mx-auto rounded-full border-2 border-slate-600 bg-slate-800 flex items-center justify-center mb-2 transition-all duration-300">
+                                    <span class="text-slate-500 font-bold text-sm">4</span>
+                                </div>
+                                <span class="text-slate-500 text-xs font-medium">Opslaan</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Footer hint -->
+                    <p class="text-center text-slate-600 text-sm mt-6">Dit duurt meestal 30-60 seconden</p>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+
+            // Start polling for progress
+            let pollInterval = setInterval(() => {
+                fetch(`/api/scan/${targetId}/status/`)
+                    .then(res => res.json())
+                    .then(progress => {
+                        updateNewSiteProgress(progress);
+
+                        if (progress.state === 'complete' || progress.state === 'no_change') {
+                            clearInterval(pollInterval);
+                            // Redirect to new target after short delay
+                            setTimeout(() => {
+                                window.location.href = '/?target=' + targetId;
+                            }, 1500);
+                        } else if (progress.state === 'failed') {
+                            clearInterval(pollInterval);
+                            alert('Scan mislukt: ' + (progress.detail || 'Onbekende fout'));
+                            overlay.remove();
+                        }
+                    })
+                    .catch(err => console.error('Progress poll error:', err));
+            }, 1500);
+
+            // Initial poll
+            fetch(`/api/scan/${targetId}/status/`).then(res => res.json()).then(updateNewSiteProgress);
+        }
+
+        function updateNewSiteProgress(progress) {
+            const stepInfo = {
+                idle: { pct: 0, msg: 'Wachten...', detail: 'Scan wordt gestart', step: 0 },
+                starting: { pct: 5, msg: 'Starten...', detail: 'Verbinding maken met website', step: 0 },
+                scout: { pct: 20, msg: 'Wijzigingen detecteren', detail: 'Content hash berekenen...', step: 1 },
+                no_change: { pct: 100, msg: '✓ Voltooid!', detail: 'Nulmeting afgerond', step: 5 },
+                capture: { pct: 45, msg: 'Screenshot maken', detail: 'Playwright browser actief...', step: 2 },
+                gemini: { pct: 70, msg: 'AI Analyse', detail: 'Gemini analyseert de pagina...', step: 3 },
+                saving: { pct: 90, msg: 'Opslaan', detail: 'Database bijwerken...', step: 4 },
+                complete: { pct: 100, msg: '✓ Voltooid!', detail: 'Nulmeting succesvol afgerond', step: 5 },
+                failed: { pct: 0, msg: '✗ Mislukt', detail: progress.detail || 'Fout opgetreden', step: -1 }
+            };
+
+            const info = stepInfo[progress.state] || stepInfo.idle;
+
+            const statusEl = document.getElementById('new-site-status');
+            const percentEl = document.getElementById('new-site-percent');
+            const barEl = document.getElementById('new-site-bar');
+            const detailEl = document.getElementById('new-site-detail');
+
+            if (statusEl) statusEl.textContent = info.msg;
+            if (percentEl) percentEl.textContent = info.pct + '%';
+            if (barEl) barEl.style.width = info.pct + '%';
+            if (detailEl) detailEl.textContent = info.detail;
+
+            // Update step indicators
+            for (let i = 1; i <= 4; i++) {
+                const stepEl = document.getElementById('new-step-' + i);
+                if (!stepEl) continue;
+
+                const circle = stepEl.querySelector('div');
+                const text = stepEl.querySelector('span:last-child');
+                const num = stepEl.querySelector('span:first-child');
+
+                if (info.step === 5 || i < info.step) {
+                    // Completed
+                    circle.classList.remove('border-slate-600', 'bg-slate-800', 'border-blue-500', 'bg-blue-600');
+                    circle.classList.add('border-green-500', 'bg-green-600');
+                    if (num) num.textContent = '✓';
+                    if (num) num.classList.remove('text-slate-500', 'text-white');
+                    if (num) num.classList.add('text-white');
+                    if (text) text.classList.remove('text-slate-500', 'text-blue-400');
+                    if (text) text.classList.add('text-green-400');
+                } else if (i === info.step) {
+                    // Active
+                    circle.classList.remove('border-slate-600', 'bg-slate-800', 'border-green-500', 'bg-green-600');
+                    circle.classList.add('border-blue-500', 'bg-blue-600', 'animate-pulse');
+                    if (num) num.classList.remove('text-slate-500');
+                    if (num) num.classList.add('text-white');
+                    if (text) text.classList.remove('text-slate-500', 'text-green-400');
+                    if (text) text.classList.add('text-blue-400');
+                }
+            }
+
+            // Success state
+            if (info.step === 5 && barEl) {
+                barEl.classList.remove('from-blue-500', 'via-indigo-500', 'to-purple-500');
+                barEl.classList.add('from-green-500', 'via-emerald-500', 'to-teal-500');
+            }
+        }
+
+
+        function saveTargetEdit(event) {
+            event.preventDefault();
+            const id = document.getElementById('edit-target-id').value;
+
+            fetch(`/api/targets/${id}/update/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCsrfToken(),
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: document.getElementById('edit-name').value,
+                    url: normalizeUrl(document.getElementById('edit-url').value),
+                    interval: document.getElementById('edit-interval').value
+                })
+            }).then(() => location.reload());
+        }
+
+        function deleteTarget() {
+            if (!confirm('Weet je zeker dat je deze site wilt verwijderen? Dit kan niet ongedaan worden gemaakt.')) return;
+
+            const id = document.getElementById('edit-target-id').value;
+            fetch(`/api/targets/${id}/delete/`, {
+                method: 'POST',
+                headers: { 'X-CSRFToken': getCsrfToken() }
+            }).then(() => window.location.href = '/');
+        }
+
+        function deleteScan(scanId) {
+            if (!confirm('Weet je zeker dat je deze scan wilt verwijderen? De bijbehorende screenshot wordt ook verwijderd.')) return;
+
+            fetch(`/api/scans/${scanId}/delete/`, {
+                method: 'POST',
+                headers: { 'X-CSRFToken': getCsrfToken() }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Reload the page to refresh the scan list
+                        location.reload();
+                    } else {
+                        alert('Fout bij verwijderen: ' + (data.error || 'Onbekende fout'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Delete scan error:', error);
+                    alert('Er is een fout opgetreden bij het verwijderen.');
+                });
+        }
+
+        // ===== iOS-style Swipe-to-Reveal Actions =====
+
+        // Handle site click - toggle swipe or navigate
+        function handleSiteClick(event, targetId) {
+            const wrapper = event.currentTarget;
+            const isSwiped = wrapper.classList.contains('swiped');
+
+            // Close all other swiped items first
+            document.querySelectorAll('.site-item-wrapper.swiped').forEach(el => {
+                if (el !== wrapper) el.classList.remove('swiped');
+            });
+
+            // Toggle swipe state
+            if (!isSwiped) {
+                wrapper.classList.add('swiped');
+            } else {
+                wrapper.classList.remove('swiped');
+            }
+        }
+
+        // Apple-style delete confirmation with animation
+        function confirmDeleteTarget(targetId, targetName) {
+            // Close any swiped items
+            document.querySelectorAll('.site-item-wrapper.swiped').forEach(el => {
+                el.classList.remove('swiped');
+            });
+
+            // Create elegant confirmation dialog
+            const overlay = document.createElement('div');
+            overlay.className = 'fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center';
+            overlay.style.animation = 'fadeIn 0.15s ease-out';
+
+            overlay.innerHTML = `
+                <div class="bg-white rounded-2xl shadow-2xl p-6 max-w-sm mx-4 text-center" style="animation: slideUp 0.2s ease-out">
+                    <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Site verwijderen?</h3>
+                    <p class="text-gray-500 text-sm mb-6">"${targetName}" en alle bijbehorende scans worden permanent verwijderd.</p>
+                    <div class="flex gap-3">
+                        <button onclick="this.closest('.fixed').remove()" class="flex-1 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl transition-colors">
+                            Annuleer
+                        </button>
+                        <button onclick="executeDeleteTarget(${targetId})" class="flex-1 px-4 py-2.5 bg-red-500 hover:bg-red-600 text-white font-medium rounded-xl transition-colors">
+                            Verwijder
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            // Add animations
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; }}
+                @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); }}
+            `;
+            overlay.appendChild(style);
+
+            // Close on backdrop click
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) overlay.remove();
+            });
+
+            document.body.appendChild(overlay);
+        }
+
+        // Execute the deletion
+        function executeDeleteTarget(targetId) {
+            fetch(`/api/targets/${targetId}/delete/`, {
+                method: 'POST',
+                headers: { 'X-CSRFToken': getCsrfToken() }
+            }).then(() => {
+                // Animate removal
+                const wrapper = document.querySelector(`[data-target-id="${targetId}"]`);
+                if (wrapper) {
+                    wrapper.style.transform = 'translateX(-100%)';
+                    wrapper.style.opacity = '0';
+                    wrapper.style.transition = 'all 0.3s ease';
+                }
+                setTimeout(() => window.location.href = '/', 300);
+            });
+        }
+
+        // Touch gesture support for mobile swipe
+        let touchStartX = 0;
+        let touchCurrentX = 0;
+        let currentSwipeWrapper = null;
+
+        document.addEventListener('touchstart', (e) => {
+            const wrapper = e.target.closest('.site-item-wrapper');
+            if (wrapper) {
+                touchStartX = e.touches[0].clientX;
+                currentSwipeWrapper = wrapper;
+            }
+        }, { passive: true });
+
+        document.addEventListener('touchmove', (e) => {
+            if (!currentSwipeWrapper) return;
+            touchCurrentX = e.touches[0].clientX;
+        }, { passive: true });
+
+        document.addEventListener('touchend', () => {
+            if (!currentSwipeWrapper) return;
+
+            const diff = touchStartX - touchCurrentX;
+
+            if (diff > 50) {
+                // Swipe left - show actions
+                currentSwipeWrapper.classList.add('swiped');
+            } else if (diff < -50) {
+                // Swipe right - hide actions
+                currentSwipeWrapper.classList.remove('swiped');
+            }
+
+            currentSwipeWrapper = null;
+            touchStartX = 0;
+            touchCurrentX = 0;
+        });
+
+        // Close swipe on outside click
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.site-item-wrapper')) {
+                document.querySelectorAll('.site-item-wrapper.swiped').forEach(el => {
+                    el.classList.remove('swiped');
+                });
+            }
+        });
+
+        // Manual scan with animation and progress tracking
+        let isScanning = false;
+        let pollInterval = null;
+
+        function updateProgressUI(progress) {
+            const statusTitle = document.getElementById('scan-status-title');
+            const statusDetail = document.getElementById('scan-status-detail');
+            const statusPercent = document.getElementById('scan-status-percent');
+            const statusBar = document.getElementById('scan-status-bar');
+            const statusScanning = document.getElementById('status-scanning');
+
+            // Step details for each state
+            const stepInfo = {
+                idle: { pct: 0, msg: 'Klaar', detail: 'Wachtend op volgende scan', step: 0 },
+                starting: { pct: 5, msg: 'Scan starten...', detail: 'Verbinding maken met website', step: 0 },
+                scout: { pct: 20, msg: 'Wijzigingen detecteren', detail: 'Content hash berekenen...', step: 1 },
+                no_change: { pct: 100, msg: '✓ Geen wijzigingen', detail: 'Website onveranderd - geen screenshot nodig', step: 5 },
+                capture: { pct: 45, msg: 'Screenshot maken', detail: 'Playwright headless browser...', step: 2 },
+                gemini: { pct: 70, msg: 'AI Analyse', detail: 'Gemini vergelijkt wijzigingen...', step: 3 },
+                saving: { pct: 90, msg: 'Opslaan', detail: 'Database bijwerken...', step: 4 },
+                complete: { pct: 100, msg: '✓ Voltooid!', detail: 'Alle stappen afgerond', step: 5 },
+                failed: { pct: 0, msg: '✗ Mislukt', detail: progress.detail || 'Fout opgetreden', step: -1 }
+            };
+
+            const info = stepInfo[progress.state] || stepInfo.idle;
+
+            // Update status bar
+            if (statusTitle) statusTitle.textContent = info.msg;
+            if (statusDetail) statusDetail.textContent = info.detail;
+            if (statusPercent) statusPercent.textContent = info.pct + '%';
+            if (statusBar) statusBar.style.width = info.pct + '%';
+
+            // Update inline step indicators (1-4)
+            for (let i = 1; i <= 4; i++) {
+                const step = document.getElementById('inline-step-' + i);
+                if (!step) continue;
+
+                const dot = step.querySelector('.step-dot');
+
+                if (info.step === 5 || i < info.step) {
+                    // Completed - green
+                    step.classList.remove('text-slate-400', 'text-blue-600');
+                    step.classList.add('text-green-600');
+                    if (dot) {
+                        dot.classList.remove('border-slate-300', 'bg-white', 'border-blue-500', 'bg-blue-500', 'animate-pulse');
+                        dot.classList.add('border-green-500', 'bg-green-500', 'text-white');
+                        dot.textContent = '✓';
+                    }
+                } else if (i === info.step) {
+                    // Active - blue with pulse
+                    step.classList.remove('text-slate-400', 'text-green-600');
+                    step.classList.add('text-blue-600');
+                    if (dot) {
+                        dot.classList.remove('border-slate-300', 'bg-white', 'border-green-500', 'bg-green-500');
+                        dot.classList.add('border-blue-500', 'bg-blue-500', 'text-white', 'animate-pulse');
+                        dot.textContent = i;
+                    }
+                } else {
+                    // Future - gray
+                    step.classList.remove('text-blue-600', 'text-green-600');
+                    step.classList.add('text-slate-400');
+                    if (dot) {
+                        dot.classList.remove('border-blue-500', 'bg-blue-500', 'border-green-500', 'bg-green-500', 'text-white', 'animate-pulse');
+                        dot.classList.add('border-slate-300', 'bg-white');
+                        dot.textContent = i;
+                    }
+                }
+            }
+
+            // Handle complete - reload after delay
+            if (progress.state === 'complete') {
+                if (statusBar) {
+                    statusBar.classList.remove('from-blue-500', 'via-indigo-500', 'to-purple-500');
+                    statusBar.classList.add('from-green-500', 'via-emerald-500', 'to-teal-500');
+                }
+                setTimeout(() => location.reload(), 1500);
+            } else if (progress.state === 'no_change') {
+                // No changes detected - show green success and refresh
+                if (statusBar) {
+                    statusBar.classList.remove('from-blue-500', 'via-indigo-500', 'to-purple-500');
+                    statusBar.classList.add('from-green-500', 'via-emerald-500', 'to-teal-500');
+                }
+                setTimeout(() => location.reload(), 2000);
+            } else if (progress.state === 'failed') {
+                if (statusScanning) {
+                    statusScanning.classList.remove('from-blue-50', 'via-indigo-50', 'to-purple-50', 'border-blue-200/50');
+                    statusScanning.classList.add('from-red-50', 'via-orange-50', 'to-rose-50', 'border-red-200');
+                }
+                if (statusBar) {
+                    statusBar.classList.remove('from-blue-500', 'via-indigo-500', 'to-purple-500');
+                    statusBar.classList.add('from-red-500', 'to-orange-500');
+                }
+            }
+        }
+
+
+
+        function pollProgress(targetId) {
+            fetch(`/api/scan/${targetId}/status/`)
+                .then(res => res.json())
+                .then(progress => {
+                    updateProgressUI(progress);
+
+                    // Stop polling if complete, no_change, or failed
+                    if (progress.state === 'complete' || progress.state === 'no_change' || progress.state === 'failed') {
+                        clearInterval(pollInterval);
+                        pollInterval = null;
+                        isScanning = false;
+                    }
+                })
+                .catch(err => console.error('Progress poll error:', err));
+        }
+
+        function startManualScan(targetId) {
+            if (isScanning) return;
+            isScanning = true;
+
+            const btn = document.getElementById('scan-btn');
+            const btnText = document.getElementById('scan-btn-text');
+            const btnSpinner = document.getElementById('scan-btn-spinner');
+            const countdown = document.getElementById('countdown');
+            const statusStable = document.getElementById('status-stable');
+            const statusScanning = document.getElementById('status-scanning');
+
+            // Update button state
+            btnText.textContent = '...';
+            btnSpinner.classList.remove('hidden');
+            btn.classList.add('scanning', 'bg-blue-600');
+            if (countdown) countdown.classList.add('scanning');
+
+            // Apple-style transition: fade out stable, fade in scanning
+            if (statusStable) {
+                statusStable.classList.add('opacity-0', 'scale-95');
+                setTimeout(() => {
+                    statusStable.classList.add('hidden');
+
+                    // Show scanning status with animation
+                    if (statusScanning) {
+                        statusScanning.classList.remove('hidden');
+
+                        // Trigger animation after a frame
+                        requestAnimationFrame(() => {
+                            statusScanning.classList.remove('opacity-0', 'translate-y-2');
+                            statusScanning.classList.add('opacity-100', 'translate-y-0');
+                        });
+                    }
+                }, 300);
+            } else if (statusScanning) {
+                // No stable bar, just show scanning
+                statusScanning.classList.remove('hidden');
+                requestAnimationFrame(() => {
+                    statusScanning.classList.remove('opacity-0', 'translate-y-2');
+                    statusScanning.classList.add('opacity-100', 'translate-y-0');
+                });
+            }
+
+            // Reset step indicators
+            for (let i = 1; i <= 4; i++) {
+                const step = document.getElementById('inline-step-' + i);
+                if (step) {
+                    step.classList.remove('text-blue-600', 'text-green-600');
+                    step.classList.add('text-slate-400');
+                    const dot = step.querySelector('.step-dot');
+                    if (dot) {
+                        dot.classList.remove('border-blue-500', 'bg-blue-500', 'border-green-500', 'bg-green-500', 'text-white', 'animate-pulse');
+                        dot.classList.add('border-slate-300', 'bg-white');
+                        dot.textContent = i;
+                    }
+                }
+            }
+
+            // Trigger scan
+            fetch(`/api/scan/${targetId}/`, {
+                method: 'POST',
+                headers: { 'X-CSRFToken': getCsrfToken() }
+            }).then(() => {
+                // Start polling for progress
+                pollInterval = setInterval(() => pollProgress(targetId), 1500);
+                // Also poll immediately
+                pollProgress(targetId);
+            });
+        }
+
+
+
+        // Toggle target status
+        function toggleTarget(targetId, isActive) {
+            fetch(`/api/targets/${targetId}/toggle/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCsrfToken(),
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ active: isActive })
+            }).then(() => location.reload());
+        }
+
+        // Toggle advice visibility
+        function toggleAdvice(scanId) {
+            const adviceEl = document.getElementById('advice-' + scanId);
+            adviceEl.classList.toggle('hidden');
+        }
+
+        // Toggle screenshot expand/collapse
+        function toggleScreenshot(scanId) {
+            const wrapper = document.getElementById('screenshot-wrapper-' + scanId);
+            const text = document.getElementById('expand-text-' + scanId);
+
+            if (wrapper.classList.contains('screenshot-collapsed')) {
+                wrapper.classList.remove('screenshot-collapsed');
+                wrapper.classList.add('screenshot-expanded');
+                text.textContent = 'Inklappen';
+            } else {
+                wrapper.classList.add('screenshot-collapsed');
+                wrapper.classList.remove('screenshot-expanded');
+                text.textContent = 'Uitklappen';
+            }
+        }
+
+        // Scroll to latest screenshot
+        function scrollToLatest() {
+            const container = document.getElementById('screenshots-container');
+            container.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Resizable columns
+        const resizeHandle = document.getElementById('resize-handle');
+        const middlePanel = document.getElementById('middle-panel');
+        const rightPanel = document.getElementById('right-panel');
+
+        if (resizeHandle && middlePanel) {
+            let isResizing = false;
+            let startX, startWidth;
+            const container = middlePanel.parentElement;
+
+            resizeHandle.addEventListener('mousedown', (e) => {
+                isResizing = true;
+                startX = e.clientX;
+                startWidth = middlePanel.offsetWidth;
+                resizeHandle.classList.add('active');
+                document.body.style.cursor = 'col-resize';
+                document.body.style.userSelect = 'none';
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isResizing) return;
+                const containerWidth = container.offsetWidth - 280; // minus left panel
+                const diff = e.clientX - startX;
+                const newWidth = startWidth + diff;
+                const minRight = containerWidth * 0.20; // 20% minimum for right
+                const maxMiddle = containerWidth - minRight;
+
+                const clampedWidth = Math.max(300, Math.min(maxMiddle, newWidth));
+                middlePanel.style.width = clampedWidth + 'px';
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (isResizing) {
+                    isResizing = false;
+                    resizeHandle.classList.remove('active');
+                    document.body.style.cursor = '';
+                    document.body.style.userSelect = '';
+                }
+            });
+        }
+
+        // Auto-scan on page load for new targets
+        {% if selected_target and selected_target.status == 'active' and not scans %}
+        window.addEventListener('DOMContentLoaded', function () {
+            // Show scanning indicator
+            const indicator = document.getElementById('scanning-indicator');
+            if (indicator) {
+                indicator.innerHTML = `
+                <div class="scanning">
+                    <svg class="w-12 h-12 text-blue-500 animate-spin" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                    </svg>
+                </div>
+                <p class="text-gray-600 font-medium mt-4">Eerste scan bezig...</p>
+                <p class="text-gray-400 text-sm mt-1">±30 seconden</p>
+            `;
+            }
+            // Poll for completion - only if no modal is open
+            function safeReload() {
+                const addModal = document.getElementById('addTargetModal');
+                const editModal = document.getElementById('editTargetModal');
+                if (addModal && !addModal.classList.contains('hidden')) return;
+                if (editModal && !editModal.classList.contains('hidden')) return;
+                location.reload();
+            }
+            setTimeout(safeReload, 5000);
+            setInterval(safeReload, 10000);
+        });
+        {% endif %}
+
+        // Countdown timer
+        {% if selected_target and selected_target.status == 'active' and selected_target.last_scan_at %}
+        function updateCountdown() {
+            const lastScan = new Date('{{ selected_target.last_scan_at|date:"c" }}');
+            const intervalMinutes = {{ selected_target.interval }
+        };
+        const nextScan = new Date(lastScan.getTime() + intervalMinutes * 60 * 1000);
+        const now = new Date();
+        const remaining = nextScan - now;
+
+        const countdownEl = document.getElementById('countdown');
+        if (!countdownEl) return;
+
+        if (remaining <= 0) {
+            countdownEl.textContent = 'Nu!';
+            countdownEl.classList.add('text-accent', 'animate-pulse');
+        } else {
+            const minutes = Math.floor(remaining / 60000);
+            const seconds = Math.floor((remaining % 60000) / 1000);
+            countdownEl.textContent = String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+            countdownEl.classList.remove('text-accent', 'animate-pulse');
+        }
+        }
+
+        // Start countdown timer on page load
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+        {% endif %}
+    </script>

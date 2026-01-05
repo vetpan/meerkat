@@ -1,0 +1,232 @@
+{% load dashboard_extras %}
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix - Meerkat Competitor Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        surface: { DEFAULT: '#FAFAFA', secondary: '#F5F5F7', card: '#FFFFFF' },
+                        ink: { DEFAULT: '#1D1D1F', secondary: '#6E6E73', tertiary: '#86868B' },
+                        accent: { DEFAULT: '#0066CC', hover: '#0055B3' },
+                        success: { DEFAULT: '#34C759', light: '#E8F9ED' },
+                        danger: { DEFAULT: '#FF3B30', light: '#FFEBE9' },
+                        border: { DEFAULT: '#E5E5E7', light: '#F0F0F2' },
+                    },
+                    borderRadius: { xl: '12px', '2xl': '16px', '3xl': '20px' },
+                    boxShadow: {
+                        soft: '0 1px 3px rgba(0,0,0,0.04)',
+                        card: '0 2px 8px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02)',
+                        elevated: '0 8px 30px rgba(0,0,0,0.08)',
+                        glow: '0 0 40px rgba(0,102,204,0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 400px;
+            background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 102, 204, 0.08), transparent);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .matrix-cell {
+            min-width: 300px;
+            max-width: 400px;
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-ink font-sans h-screen flex overflow-hidden selection:bg-accent/10 selection:text-accent">
+
+    <!-- Sidebar -->
+    <aside
+        class="fixed top-0 left-0 w-[280px] h-screen bg-sidebar border-r border-border/60 flex flex-col z-50 bg-[#F5F5F7]">
+        <!-- Header -->
+        <div class="h-16 flex items-center px-6 border-b border-border/50 bg-white/50 backdrop-blur-md">
+            <div class="flex items-center gap-2.5">
+                <div
+                    class="relative w-8 h-8 flex items-center justify-center bg-black rounded-lg shadow-lg overflow-hidden group hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-black to-slate-800"></div>
+                    <span
+                        class="relative text-[16px] transform group-hover:rotate-12 transition-transform duration-300">🦁</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-[13px] font-bold text-ink tracking-tight leading-4">MEERKAT</span>
+                    <span class="text-[9px] font-medium text-ink-tertiary tracking-widest uppercase">Intelligence</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex-1 overflow-y-auto py-6 px-4 space-y-1">
+            <a href="/"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[13px] font-medium text-ink-secondary hover:text-ink hover:bg-black/5 transition-all group">
+                <svg class="w-4 h-4 text-ink-tertiary group-hover:text-accent transition-colors" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z">
+                    </path>
+                </svg>
+                Dashboard
+            </a>
+            <a href="{% url 'dashboard:matrix' %}"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[13px] font-medium text-accent bg-accent/5 transition-all group">
+                <svg class="w-4 h-4 text-accent transition-colors" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2">
+                    </path>
+                </svg>
+                Concurrentie Matrix
+            </a>
+            <a href="{% url 'dashboard:help_index' %}"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[13px] font-medium text-ink-secondary hover:text-ink hover:bg-black/5 transition-all group">
+                <svg class="w-4 h-4 text-ink-tertiary group-hover:text-accent transition-colors" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Hulp & Documentatie
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 ml-[280px] h-screen overflow-hidden flex flex-col bg-surface">
+        <!-- Header -->
+        <header
+            class="h-16 px-8 flex items-center justify-between border-b border-border/50 bg-surface/80 backdrop-blur-md z-30 sticky top-0">
+            <div class="flex items-center gap-4">
+                <h1 class="text-[18px] font-semibold text-ink tracking-tight">Concurrentie Matrix</h1>
+                <span
+                    class="px-2.5 py-0.5 rounded-full bg-accent/10 text-accent text-[11px] font-medium border border-accent/10">BETA</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <button
+                    class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface border border-border text-[12px] font-medium text-ink-secondary hover:bg-black/5 transition-all">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                        </path>
+                    </svg>
+                    Export PDF
+                </button>
+            </div>
+        </header>
+
+        <!-- Matrix Table Container -->
+        <div class="flex-1 overflow-auto p-8">
+            <div class="inline-block min-w-full align-middle">
+                <div class="border border-border/60 rounded-xl overflow-hidden shadow-card bg-white">
+                    <table class="min-w-full divide-y divide-border/60">
+                        <thead class="bg-[#F5F5F7]">
+                            <tr class="divide-x divide-border/60">
+                                <th scope="col"
+                                    class="sticky left-0 bg-[#F5F5F7] py-4 pl-6 pr-3 text-left text-[11px] font-semibold text-ink-secondary uppercase tracking-wider w-[200px] z-20 border-r border-border/60 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)]">
+                                    Categorie
+                                </th>
+                                {% for item in matrix_data %}
+                                <th scope="col" class="px-6 py-4 text-left min-w-[300px]">
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex flex-col">
+                                            <span class="text-[13px] font-bold text-ink">{{ item.target.name }}</span>
+                                            <a href="{{ item.target.url }}" target="_blank"
+                                                class="text-[10px] text-ink-tertiary hover:text-accent font-mono truncate max-w-[200px]">{{ item.target.url }}</a>
+                                        </div>
+                                    </div>
+                                </th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-border/60 bg-white">
+                            {% for cat in categories %}
+                            <tr class="divide-x divide-border/60 group hover:bg-surface/50 transition-colors">
+                                <!-- Row Header -->
+                                <th scope="row"
+                                    class="sticky left-0 bg-white py-5 pl-6 pr-3 text-left text-sm font-medium text-ink z-10 border-r border-border/60 group-hover:bg-[#FCFCFC] transition-colors shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)]">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-lg">{{ cat.icon }}</span>
+                                        <span class="text-[12px] font-semibold text-ink">{{ cat.label }}</span>
+                                    </div>
+                                </th>
+
+                                <!-- Cells for each target -->
+                                {% for item in matrix_data %}
+                                <td
+                                    class="px-6 py-5 align-top matrix-cell text-[13px] leading-relaxed text-ink-secondary">
+                                    {% if item.data|get_item:cat.id %}
+                                    {{ item.data|get_item:cat.id|linebreaksbr }}
+                                    {% else %}
+                                    <span class="text-ink-tertiary italic text-[11px]">Geen data beschikbaar</span>
+                                    {% endif %}
+                                </td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+
+                            <!-- Last Scan Info Row -->
+                            <tr class="divide-x divide-border/60 bg-surface/30">
+                                <th scope="row"
+                                    class="sticky left-0 bg-surface/30 py-3 pl-6 pr-3 text-left text-[11px] font-medium text-ink-tertiary z-10 border-r border-border/60">
+                                    Laatste meting
+                                </th>
+                                {% for item in matrix_data %}
+                                <td class="px-6 py-3 text-[10px] font-mono text-ink-tertiary">
+                                    {% if item.scan %}
+                                    {{ item.scan.scanned_at|date:"d M H:i" }}
+                                    {% else %}
+                                    -
+                                    {% endif %}
+                                </td>
+                                {% endfor %}
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {% if not matrix_data %}
+            <div class="flex flex-col items-center justify-center py-20 text-center">
+                <div class="w-16 h-16 bg-surface/50 rounded-full flex items-center justify-center mb-4">
+                    <span class="text-3xl">📊</span>
+                </div>
+                <h3 class="text-lg font-semibold text-ink mb-2">Nog geen data beschikbaar</h3>
+                <p class="text-ink-secondary text-sm max-w-md">Voeg targets toe en wacht op de eerste 'Eerste meting' scan
+                    om de matrix te vullen.</p>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+
+</body>
+
+</html>

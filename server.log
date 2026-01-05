@@ -1,0 +1,723 @@
+Watching for file changes with StatReloader
+[28/Dec/2025 22:47:49] "GET /matrix/ HTTP/1.1" 200 22502
+[28/Dec/2025 22:47:55] "GET / HTTP/1.1" 200 147485
+[28/Dec/2025 22:48:16] "GET /matrix/ HTTP/1.1" 200 22502
+[28/Dec/2025 22:48:21] "GET / HTTP/1.1" 200 147485
+[28/Dec/2025 22:48:32] "GET /matrix/ HTTP/1.1" 200 22502
+[28/Dec/2025 22:49:45] "GET / HTTP/1.1" 200 147485
+[28/Dec/2025 22:50:00] "GET /matrix/ HTTP/1.1" 200 22502
+[28/Dec/2025 22:50:39] "GET / HTTP/1.1" 200 147485
+[28/Dec/2025 22:50:53] "GET /matrix/ HTTP/1.1" 200 22502
+[28/Dec/2025 22:52:32] "GET / HTTP/1.1" 200 147485
+[28/Dec/2025 22:52:49] "GET /matrix/ HTTP/1.1" 200 22502
+[28/Dec/2025 22:54:59] "GET / HTTP/1.1" 200 145749
+[28/Dec/2025 22:55:08] "GET /matrix/ HTTP/1.1" 200 22403
+[28/Dec/2025 22:55:14] "GET / HTTP/1.1" 200 145749
+[28/Dec/2025 22:55:24] "GET /matrix/ HTTP/1.1" 200 22403
+[28/Dec/2025 22:55:31] "GET / HTTP/1.1" 200 145749
+[28/Dec/2025 22:56:01] "GET / HTTP/1.1" 200 145749
+[28/Dec/2025 22:56:10] "GET /matrix/ HTTP/1.1" 200 22403
+[28/Dec/2025 22:56:30] "GET /matrix/ HTTP/1.1" 200 22403
+[28/Dec/2025 22:58:01] "GET / HTTP/1.1" 200 147841
+[28/Dec/2025 22:58:12] "GET /matrix/ HTTP/1.1" 200 22403
+[28/Dec/2025 22:58:19] "GET / HTTP/1.1" 200 147841
+[28/Dec/2025 22:58:28] "GET /matrix/ HTTP/1.1" 200 22403
+[28/Dec/2025 22:59:16] "GET / HTTP/1.1" 200 147841
+[28/Dec/2025 22:59:57] "GET /matrix/ HTTP/1.1" 200 22403
+[28/Dec/2025 23:01:06] "GET / HTTP/1.1" 200 148162
+[28/Dec/2025 23:01:16] "GET /matrix/ HTTP/1.1" 200 22403
+[28/Dec/2025 23:01:28] "GET / HTTP/1.1" 200 148162
+[28/Dec/2025 23:01:38] "GET /matrix/ HTTP/1.1" 200 22403
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/dashboard/views.py", line 72, in index
+    return render(request, 'dashboard/index.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/engine.py", line 186, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 157, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 199, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 585, in parse
+    raise self.error(token, e)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 590, in parse
+    self.unclosed_block_tag(parse_until)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 657, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Template: /Users/ramondeboer/antigrafity/meerkat/templates/dashboard/index.html, Unclosed tag on line 1908: 'if'. Looking for one of: elif, else, endif.
+[28/Dec/2025 23:03:02] "GET / HTTP/1.1" 500 166810
+[28/Dec/2025 23:03:13] "GET /matrix/ HTTP/1.1" 200 22403
+[28/Dec/2025 23:03:36] "GET /help/ HTTP/1.1" 200 25280
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 577, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endblock'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/dashboard/views.py", line 72, in index
+    return render(request, 'dashboard/index.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/engine.py", line 186, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 157, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 199, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 579, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 644, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Template: /Users/ramondeboer/antigrafity/meerkat/templates/dashboard/index.html, Invalid block tag on line 1916: 'endblock'. Did you forget to register or load this tag?
+[28/Dec/2025 23:04:41] "GET / HTTP/1.1" 500 156763
+[28/Dec/2025 23:05:33] "GET / HTTP/1.1" 200 145067
+[28/Dec/2025 23:05:43] "GET /matrix/ HTTP/1.1" 200 22403
+[28/Dec/2025 23:05:50] "GET / HTTP/1.1" 200 145067
+[28/Dec/2025 23:05:58] "GET /matrix/ HTTP/1.1" 200 22403
+[28/Dec/2025 23:06:06] "GET / HTTP/1.1" 200 145067
+[28/Dec/2025 23:06:15] "GET /matrix/ HTTP/1.1" 200 22403
+[28/Dec/2025 23:06:23] "GET / HTTP/1.1" 200 145067
+[28/Dec/2025 23:06:53] "GET / HTTP/1.1" 200 145067
+[28/Dec/2025 23:07:06] "GET /matrix/ HTTP/1.1" 200 22403
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 577, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'elif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/dashboard/views.py", line 72, in index
+    return render(request, 'dashboard/index.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/engine.py", line 186, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 157, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 199, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 585, in parse
+    raise self.error(token, e)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 585, in parse
+    raise self.error(token, e)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 585, in parse
+    raise self.error(token, e)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 894, in do_for
+    nodelist_loop = parser.parse(
+                    ^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 579, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 634, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Template: /Users/ramondeboer/antigrafity/meerkat/templates/dashboard/index.html, Invalid block tag on line 910: 'elif', expected 'empty' or 'endfor'. Did you forget to register or load this tag?
+[28/Dec/2025 23:07:53] "GET / HTTP/1.1" 500 285085
+[28/Dec/2025 23:08:25] "GET /matrix/ HTTP/1.1" 200 22403
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 577, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'elif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/dashboard/views.py", line 72, in index
+    return render(request, 'dashboard/index.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/engine.py", line 186, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 157, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 199, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 585, in parse
+    raise self.error(token, e)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 585, in parse
+    raise self.error(token, e)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 585, in parse
+    raise self.error(token, e)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 894, in do_for
+    nodelist_loop = parser.parse(
+                    ^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 579, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 634, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Template: /Users/ramondeboer/antigrafity/meerkat/templates/dashboard/index.html, Invalid block tag on line 910: 'elif', expected 'empty' or 'endfor'. Did you forget to register or load this tag?
+[28/Dec/2025 23:08:32] "GET / HTTP/1.1" 500 285085
+[28/Dec/2025 23:08:47] "GET /matrix/ HTTP/1.1" 200 22403
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 577, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'elif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/dashboard/views.py", line 72, in index
+    return render(request, 'dashboard/index.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/engine.py", line 186, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 157, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 199, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 585, in parse
+    raise self.error(token, e)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 585, in parse
+    raise self.error(token, e)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 585, in parse
+    raise self.error(token, e)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 894, in do_for
+    nodelist_loop = parser.parse(
+                    ^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 579, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 634, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Template: /Users/ramondeboer/antigrafity/meerkat/templates/dashboard/index.html, Invalid block tag on line 910: 'elif', expected 'empty' or 'endfor'. Did you forget to register or load this tag?
+[28/Dec/2025 23:08:55] "GET / HTTP/1.1" 500 285085
+[28/Dec/2025 23:09:02] "GET /matrix/ HTTP/1.1" 200 22403
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 577, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'else'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/dashboard/views.py", line 72, in index
+    return render(request, 'dashboard/index.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/engine.py", line 186, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 157, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 199, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 585, in parse
+    raise self.error(token, e)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 585, in parse
+    raise self.error(token, e)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 585, in parse
+    raise self.error(token, e)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 894, in do_for
+    nodelist_loop = parser.parse(
+                    ^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 585, in parse
+    raise self.error(token, e)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 585, in parse
+    raise self.error(token, e)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 585, in parse
+    raise self.error(token, e)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 894, in do_for
+    nodelist_loop = parser.parse(
+                    ^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 579, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 634, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Template: /Users/ramondeboer/antigrafity/meerkat/templates/dashboard/index.html, Invalid block tag on line 965: 'else', expected 'empty' or 'endfor'. Did you forget to register or load this tag?
+[28/Dec/2025 23:09:59] "GET / HTTP/1.1" 500 359786
+[28/Dec/2025 23:10:17] "GET /matrix/ HTTP/1.1" 200 22403
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 577, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'else'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/dashboard/views.py", line 72, in index
+    return render(request, 'dashboard/index.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/engine.py", line 186, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 157, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 199, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 585, in parse
+    raise self.error(token, e)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 585, in parse
+    raise self.error(token, e)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 585, in parse
+    raise self.error(token, e)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 894, in do_for
+    nodelist_loop = parser.parse(
+                    ^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 585, in parse
+    raise self.error(token, e)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 585, in parse
+    raise self.error(token, e)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 585, in parse
+    raise self.error(token, e)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 894, in do_for
+    nodelist_loop = parser.parse(
+                    ^^^^^^^^^^^^^
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 579, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "/Users/ramondeboer/antigrafity/meerkat/.venv/lib/python3.12/site-packages/django/template/base.py", line 634, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Template: /Users/ramondeboer/antigrafity/meerkat/templates/dashboard/index.html, Invalid block tag on line 965: 'else', expected 'empty' or 'endfor'. Did you forget to register or load this tag?
+[28/Dec/2025 23:10:33] "GET / HTTP/1.1" 500 359786
+[28/Dec/2025 23:11:50] "GET / HTTP/1.1" 200 143870
+[28/Dec/2025 23:12:03] "GET /matrix/ HTTP/1.1" 200 22403
+[28/Dec/2025 23:12:22] "GET / HTTP/1.1" 200 143870
+[28/Dec/2025 23:13:20] "GET / HTTP/1.1" 200 143155
+[28/Dec/2025 23:13:34] "GET /matrix/ HTTP/1.1" 200 22403
+[28/Dec/2025 23:13:45] "GET / HTTP/1.1" 200 143155
+[28/Dec/2025 23:13:56] "GET /matrix/ HTTP/1.1" 200 22403
+[28/Dec/2025 23:14:55] "GET / HTTP/1.1" 200 143095
+[28/Dec/2025 23:15:02] "GET /matrix/ HTTP/1.1" 200 22403
+[28/Dec/2025 23:15:17] "GET / HTTP/1.1" 200 143095
+[28/Dec/2025 23:16:06] "GET / HTTP/1.1" 200 143095
+[28/Dec/2025 23:16:17] "GET /matrix/ HTTP/1.1" 200 22403
+[29/Dec/2025 00:30:47] "GET /help/ HTTP/1.1" 200 25280
+[29/Dec/2025 00:30:50] "GET /help/targets/ HTTP/1.1" 200 23398
+[29/Dec/2025 00:30:52] "GET /help/getting-started/ HTTP/1.1" 200 21563
+[29/Dec/2025 00:30:54] "GET / HTTP/1.1" 200 143095
+[29/Dec/2025 00:30:58] "GET /?target=12 HTTP/1.1" 200 89206
+[29/Dec/2025 00:30:59] "GET /?target=13 HTTP/1.1" 200 143095
+[29/Dec/2025 00:31:07] "POST /api/scan/13/ HTTP/1.1" 200 90
+[29/Dec/2025 00:31:07] "GET /api/scan/13/status/ HTTP/1.1" 200 86
+[90m[BeautifulSoupCrawler][0m [32mINFO [0m Current request statistics:
+┌───────────────────────────────┬──────┐
+│ requests_finished             │ 0    │
+│ requests_failed               │ 0    │
+│ retry_histogram               │ [0]  │
+│ request_avg_failed_duration   │ None │
+│ request_avg_finished_duration │ None │
+│ requests_finished_per_minute  │ 0    │
+│ requests_failed_per_minute    │ 0    │
+│ request_total_duration        │ 0s   │
+│ requests_total                │ 0    │
+│ crawler_runtime               │ 0s   │
+└───────────────────────────────┴──────┘
+[90m[BeautifulSoupCrawler][0m [32mINFO [0m Crawled 0/18 pages, 0 failed requests, desired concurrency 10.
+[90m[crawlee._autoscaling.autoscaled_pool][0m [32mINFO [0m current_concurrency = 0; desired_concurrency = 10; cpu = 0; mem = 0; event_loop = 0.0; client_info = 0.0
+[90m[BeautifulSoupCrawler][0m [32mINFO [0m Crawler.stop() was called with following reason: The crawler has reached its limit of 1 requests per crawl. .
+[90m[BeautifulSoupCrawler][0m [32mINFO [0m The crawler will finish any remaining ongoing requests and shut down.
+[90m[crawlee._autoscaling.autoscaled_pool][0m [32mINFO [0m Waiting for remaining tasks to finish
+[90m[BeautifulSoupCrawler][0m [32mINFO [0m Final request statistics:
+┌───────────────────────────────┬─────────┐
+│ requests_finished             │ 1       │
+│ requests_failed               │ 0       │
+│ retry_histogram               │ [1]     │
+│ request_avg_failed_duration   │ None    │
+│ request_avg_finished_duration │ 149.5ms │
+│ requests_finished_per_minute  │ 353     │
+│ requests_failed_per_minute    │ 0       │
+│ request_total_duration        │ 149.5ms │
+│ requests_total                │ 1       │
+│ crawler_runtime               │ 170.2ms │
+└───────────────────────────────┴─────────┘
+[29/Dec/2025 00:31:09] "GET /api/scan/13/status/ HTTP/1.1" 200 78
+[29/Dec/2025 00:31:10] "GET /?target=13 HTTP/1.1" 200 143095
+[29/Dec/2025 00:31:12] "GET /media/screenshots/13_20251228_185140.png HTTP/1.1" 304 0
+[29/Dec/2025 00:31:12] "GET /media/screenshots/13_20251228_184355.png HTTP/1.1" 304 0
+[29/Dec/2025 09:28:58] "POST /api/targets/13/toggle/ HTTP/1.1" 200 37
+[29/Dec/2025 09:28:58] "GET /?target=13 HTTP/1.1" 200 142931
+[29/Dec/2025 09:28:59] "POST /api/targets/13/toggle/ HTTP/1.1" 200 37
+[29/Dec/2025 09:29:00] "GET /?target=13 HTTP/1.1" 200 143096
+[29/Dec/2025 09:29:11] "POST /api/targets/13/update/ HTTP/1.1" 200 17
+[29/Dec/2025 09:29:11] "GET /?target=13 HTTP/1.1" 200 143096
+[29/Dec/2025 09:29:16] "GET /matrix/ HTTP/1.1" 200 22403
+[29/Dec/2025 09:29:23] "GET / HTTP/1.1" 200 143096
+[29/Dec/2025 09:30:36] "GET / HTTP/1.1" 200 143096
+[29/Dec/2025 09:31:10] "GET /media/screenshots/13_20251228_185140.png HTTP/1.1" 304 0
+[29/Dec/2025 09:31:10] "GET /media/screenshots/13_20251228_184355.png HTTP/1.1" 304 0
+[29/Dec/2025 09:31:10] "GET /media/screenshots/13_20251227_005108.png HTTP/1.1" 304 0
+[29/Dec/2025 09:31:29] "GET /?target=12 HTTP/1.1" 200 89206
+[29/Dec/2025 09:31:34] "GET /?target=12 HTTP/1.1" 200 89206
+[29/Dec/2025 09:31:39] "GET /?target=13 HTTP/1.1" 200 143096
+[29/Dec/2025 09:34:33] "GET / HTTP/1.1" 200 143096
+[29/Dec/2025 09:36:46] "GET / HTTP/1.1" 200 147168
+[29/Dec/2025 09:39:31] "GET / HTTP/1.1" 200 147162
+[29/Dec/2025 09:40:02] "GET / HTTP/1.1" 200 147162
+[29/Dec/2025 09:41:09] "GET /matrix/ HTTP/1.1" 200 22403
+[29/Dec/2025 09:41:17] "GET /help/ HTTP/1.1" 200 25280
+[29/Dec/2025 09:41:20] "GET /help/features/ HTTP/1.1" 200 33747
+[29/Dec/2025 09:41:21] "GET /help/scans/ HTTP/1.1" 200 24015
+[29/Dec/2025 09:41:22] "GET /help/getting-started/ HTTP/1.1" 200 21563
+[29/Dec/2025 09:41:23] "GET /help/ HTTP/1.1" 200 25280
+[29/Dec/2025 09:41:23] "GET / HTTP/1.1" 200 147162
+[29/Dec/2025 09:42:31] "GET / HTTP/1.1" 200 142554
+[29/Dec/2025 09:55:45] "GET / HTTP/1.1" 200 142554
+[29/Dec/2025 09:55:45] "GET /media/screenshots/13_20251228_184355.png HTTP/1.1" 200 953133
+[29/Dec/2025 09:55:45] "GET /media/screenshots/13_20251228_185140.png HTTP/1.1" 200 981799
+[29/Dec/2025 09:55:45] "GET /media/screenshots/13_20251227_005108.png HTTP/1.1" 200 1034876
+Not Found: /favicon.ico
+[90m[django.request][0m [33mWARN [0m Not Found: /favicon.ico [90m({"request": "<WSGIRequest: GET '/favicon.ico'>", "status_code": 404, "message": "Not Found: /favicon.ico"})[0m
+[29/Dec/2025 09:55:45] "GET /favicon.ico HTTP/1.1" 404 6505
+[29/Dec/2025 09:55:49] "GET /?target=3 HTTP/1.1" 200 149053
+Not Found: /media/screenshots/3_20251213_234131.png
+[90m[django.request][0m [33mWARN [0m Not Found: /media/screenshots/3_20251213_234131.png [90m({"request": "<WSGIRequest: GET '/media/screenshots/3_20251213_234131.png'>", "status_code": 404, "message": "Not Found: /media/screenshots/3_20251213_234131.png"})[0m
+Not Found: /media/screenshots/3_20251213_230931.png
+[90m[django.request][0m [33mWARN [0m Not Found: /media/screenshots/3_20251213_230931.png [90m({"request": "<WSGIRequest: GET '/media/screenshots/3_20251213_230931.png'>", "status_code": 404, "message": "Not Found: /media/screenshots/3_20251213_230931.png"})[0m
+[29/Dec/2025 09:55:49] "GET /media/screenshots/3_20251213_234131.png HTTP/1.1" 404 6829
+[29/Dec/2025 09:55:49] "GET /media/screenshots/3_20251213_230931.png HTTP/1.1" 404 6829
+[29/Dec/2025 09:55:49] "GET /media/screenshots/3_20251226_013512.png HTTP/1.1" 304 0
+[29/Dec/2025 09:55:49] "GET /media/screenshots/3_20251227_002650.png HTTP/1.1" 304 0
+[29/Dec/2025 09:55:49] "GET /media/screenshots/3_20251226_233229.png HTTP/1.1" 304 0
+[29/Dec/2025 09:55:50] "GET /?target=13 HTTP/1.1" 200 142554
+[29/Dec/2025 09:57:12] "GET / HTTP/1.1" 200 142554
+[29/Dec/2025 10:01:38] "GET / HTTP/1.1" 200 145539
+Performing system checks...
+
+System check identified no issues (0 silenced).
+December 28, 2025 - 22:47:42
+Django version 6.0, using settings 'config.settings'
+Starting development server at http://127.0.0.1:8001/
+Quit the server with CONTROL-C.
+
+WARNING: This is a development server. Do not use it in a production setting. Use a production WSGI or ASGI server instead.
+For more information on production servers see: https://docs.djangoproject.com/en/6.0/howto/deployment/
+
+============================================================
+🎯 Scanning: Ziggo
+   URL: https://www.ziggo.nl
+============================================================
+
+🔍 Step 1: Scout mode (hash check)...
+   ✅ Hash: 49972f7ea1afabac4ea5187f04cb6e36
+   📸 Images: 18
+
+   ✓ No changes detected
+   Hash matches previous scan
+

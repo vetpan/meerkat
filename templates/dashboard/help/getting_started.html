@@ -1,0 +1,126 @@
+{% extends 'dashboard/help/help_base.html' %}
+
+{% block title %}Aan de slag{% endblock %}
+
+{% block breadcrumb %}
+<svg class="w-4 h-4 text-ink-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+</svg>
+<span class="text-ink font-medium">Aan de slag</span>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl">
+    <!-- Header -->
+    <div class="mb-10">
+        <div
+            class="w-14 h-14 bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+        </div>
+        <h1 class="text-3xl font-bold text-ink mb-3">Aan de slag met Meerkat</h1>
+        <p class="text-ink-secondary text-lg">Leer hoe je competitor websites kunt monitoren en altijd op de hoogte
+            blijft van hun wijzigingen.</p>
+    </div>
+
+    <!-- What is Meerkat -->
+    <div class="prose mb-12">
+        <h2>Wat is Meerkat?</h2>
+        <p>Meerkat is een intelligente competitor monitoring tool die automatisch websites van je concurrenten in de
+            gaten houdt. Wanneer er wijzigingen worden gedetecteerd, maakt Meerkat een screenshot en analyseert de
+            veranderingen met behulp van Google's Gemini AI.</p>
+
+        <p>Met Meerkat hoef je niet meer handmatig websites te checken. Je krijgt automatisch meldingen wanneer er iets
+            belangrijks verandert, inclusief een gedetailleerde analyse van wat er is aangepast en wat dit voor jouw
+            business kan betekenen.</p>
+    </div>
+
+    <!-- Quick Start -->
+    <div class="mb-12">
+        <h2 class="text-xl font-bold text-ink mb-6">Snelstart in 3 stappen</h2>
+
+        <div class="step-card">
+            <div class="step-number">1</div>
+            <div>
+                <h3 class="font-semibold text-ink mb-1">Voeg een site toe</h3>
+                <p class="text-ink-secondary text-sm">Klik op "Nieuwe Site" in de linker sidebar en vul de URL van de
+                    concurrent in die je wilt monitoren.</p>
+            </div>
+        </div>
+
+        <div class="step-card">
+            <div class="step-number">2</div>
+            <div>
+                <h3 class="font-semibold text-ink mb-1">Stel het interval in</h3>
+                <p class="text-ink-secondary text-sm">Kies hoe vaak Meerkat de site moet checken: elke 15, 30 of 60
+                    minuten afhankelijk van hoe belangrijk de concurrent is.</p>
+            </div>
+        </div>
+
+        <div class="step-card">
+            <div class="step-number">3</div>
+            <div>
+                <h3 class="font-semibold text-ink mb-1">Bekijk de resultaten</h3>
+                <p class="text-ink-secondary text-sm">Na de eerste scan zie je direct een eerste meting. Bij volgende scans
+                    vergelijkt Meerkat automatisch met eerdere versies.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Overview -->
+    <div class="prose mb-12">
+        <h2>Het Dashboard begrijpen</h2>
+        <p>Het Meerkat dashboard is opgedeeld in drie kolommen:</p>
+
+        <ul>
+            <li><strong>Linker sidebar:</strong> Hier zie je al je gemonitorde sites met hun status (groen = actief,
+                rood = gepauzeerd).</li>
+            <li><strong>Midden paneel:</strong> De AI analyse en timeline met alle gedetecteerde wijzigingen.</li>
+            <li><strong>Rechter paneel:</strong> Full-page screenshots van de website door de tijd heen.</li>
+        </ul>
+
+        <h3>Statusbalk</h3>
+        <p>Bovenaan het middelste paneel zie je een statusbalk die aangeeft of de website stabiel is of dat er recent
+            wijzigingen zijn gedetecteerd. De groene "Stabiel sinds..." indicator betekent dat er geen significante
+            veranderingen zijn gevonden.</p>
+    </div>
+
+    <!-- First Scan -->
+    <div class="prose mb-12">
+        <h2>Je eerste scan</h2>
+        <p>Wanneer je een nieuwe site toevoegt, start Meerkat automatisch een "eerste meting". Dit is een baseline scan die
+            gebruikt wordt als referentie voor toekomstige vergelijkingen.</p>
+
+        <p>De eerste meting bevat:</p>
+        <ul>
+            <li>Een volledige screenshot van de website</li>
+            <li>Een AI-gegenereerde samenvatting van de huidige content</li>
+            <li>Identificatie van belangrijke elementen (prijzen, aanbiedingen, etc.)</li>
+        </ul>
+
+        <p>Bij elke volgende scan vergelijkt de AI deze informatie met de eerste meting om wijzigingen te detecteren.</p>
+    </div>
+
+    <!-- Next Steps -->
+    <div class="bg-accent/5 rounded-2xl p-6 border border-accent/10">
+        <h3 class="font-semibold text-ink mb-3">Volgende stappen</h3>
+        <div class="space-y-3">
+            <a href="{% url 'dashboard:help_targets' %}"
+                class="flex items-center gap-2 text-accent hover:text-accent-hover text-sm font-medium">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+                Leer meer over het beheren van targets
+            </a>
+            <a href="{% url 'dashboard:help_scans' %}"
+                class="flex items-center gap-2 text-accent hover:text-accent-hover text-sm font-medium">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+                Begrijp hoe scans en AI analyse werken
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Meerkat Intelligence{% endblock %}</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'meerkat-blue': '#3B82F6',
+                        'meerkat-green': '#22C55E',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom fonts */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+        }
+        
+        /* Smooth transitions */
+        * {
+            transition: all 0.2s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 antialiased">
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

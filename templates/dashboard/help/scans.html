@@ -1,0 +1,179 @@
+{% extends 'dashboard/help/help_base.html' %}
+
+{% block title %}Scans & Analyse{% endblock %}
+
+{% block breadcrumb %}
+<svg class="w-4 h-4 text-ink-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+</svg>
+<span class="text-ink font-medium">Scans & Analyse</span>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl">
+    <!-- Header -->
+    <div class="mb-10">
+        <div
+            class="w-14 h-14 bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+            </svg>
+        </div>
+        <h1 class="text-3xl font-bold text-ink mb-3">Scans & AI Analyse</h1>
+        <p class="text-ink-secondary text-lg">Ontdek hoe Meerkat websites analyseert en wijzigingen detecteert met
+            behulp van geavanceerde AI.</p>
+    </div>
+
+    <!-- How Scans Work -->
+    <div class="prose mb-12">
+        <h2>Hoe scans werken</h2>
+        <p>Een Meerkat scan doorloopt vier stappen om wijzigingen te detecteren en te analyseren:</p>
+    </div>
+
+    <!-- Scan Steps -->
+    <div class="mb-12">
+        <div class="step-card">
+            <div class="step-number">1</div>
+            <div>
+                <h3 class="font-semibold text-ink mb-1">Detecteren</h3>
+                <p class="text-ink-secondary text-sm">Meerkat bezoekt de website en berekent een "hash" van de content.
+                    Deze fingerprint wordt vergeleken met de vorige scan om te bepalen of er iets is veranderd.</p>
+            </div>
+        </div>
+
+        <div class="step-card">
+            <div class="step-number">2</div>
+            <div>
+                <h3 class="font-semibold text-ink mb-1">Screenshot</h3>
+                <p class="text-ink-secondary text-sm">Als er wijzigingen zijn gedetecteerd, maakt Playwright een
+                    full-page screenshot van de website. Cookie banners worden automatisch weggehaald voor een schoon
+                    beeld.</p>
+            </div>
+        </div>
+
+        <div class="step-card">
+            <div class="step-number">3</div>
+            <div>
+                <h3 class="font-semibold text-ink mb-1">AI Analyse</h3>
+                <p class="text-ink-secondary text-sm">Google's Gemini AI vergelijkt de nieuwe screenshot met de vorige
+                    versie. De AI identificeert wat er is veranderd en beoordeelt de business impact.</p>
+            </div>
+        </div>
+
+        <div class="step-card">
+            <div class="step-number">4</div>
+            <div>
+                <h3 class="font-semibold text-ink mb-1">Opslaan</h3>
+                <p class="text-ink-secondary text-sm">De resultaten worden opgeslagen in de database, inclusief
+                    screenshot, analyse en tijdstempel. Je kunt altijd terugkijken in de timeline.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Smart Detection -->
+    <div class="prose mb-12">
+        <h2>Slimme detectie</h2>
+        <p>Meerkat is geoptimaliseerd om resources te besparen. Wanneer de website niet is veranderd sinds de vorige
+            scan, worden stappen 2-4 overgeslagen. Je ziet dan de melding "Geen wijzigingen gevonden" in plaats van een
+            volledige scan.</p>
+
+        <div class="bg-green-50 border border-green-200 rounded-xl p-4 my-6">
+            <div class="flex gap-3">
+                <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <div>
+                    <p class="font-semibold text-green-800 text-sm mb-1">Efficiënt monitoren</p>
+                    <p class="text-green-700 text-sm">Door alleen screenshots te maken wanneer er daadwerkelijk iets is
+                        veranderd, bespaar je API-kosten en krijg je snellere resultaten.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Analysis -->
+    <div class="prose mb-12">
+        <h2>De AI Analyse begrijpen</h2>
+        <p>Google Gemini analyseert elke wijziging en geeft je:</p>
+
+        <h3>Impact Score (1-10)</h3>
+        <p>Elke gedetecteerde wijziging krijgt een score van 1 tot 10:</p>
+        <ul>
+            <li><strong>1-3:</strong> Kleine cosmetische wijzigingen (kleuraanpassingen, kleine tekstuele updates)</li>
+            <li><strong>4-6:</strong> Significante wijzigingen (nieuwe secties, prijsaanpassingen)</li>
+            <li><strong>7-10:</strong> Kritieke wijzigingen (nieuwe productlanceringen, grote prijswijzigingen,
+                campagnes)</li>
+        </ul>
+
+        <h3>Categorieën</h3>
+        <p>Wijzigingen worden automatisch gecategoriseerd:</p>
+        <ul>
+            <li><strong>Pricing:</strong> Prijzen, kortingen, aanbiedingen</li>
+            <li><strong>Products:</strong> Nieuwe producten, assortiment</li>
+            <li><strong>UX/Design:</strong> Layout, navigatie, visuele updates</li>
+            <li><strong>Content:</strong> Teksten, afbeeldingen, video's</li>
+            <li><strong>Marketing:</strong> Campagnes, banners, promoties</li>
+        </ul>
+
+        <h3>Business Implicatie</h3>
+        <p>Voor elke wijziging geeft de AI een inschatting van wat dit voor jouw business kan betekenen. Bijvoorbeeld:
+            "Concurrent verlaagt prijzen met 15% - overweeg prijsmatch strategie."</p>
+    </div>
+
+    <!-- Manual Scans -->
+    <div class="prose mb-12">
+        <h2>Handmatige scans</h2>
+        <p>Naast automatische scans kun je ook handmatig een scan starten:</p>
+
+        <ol>
+            <li>Selecteer de site in de sidebar.</li>
+            <li>Klik op de <strong>"SCAN"</strong> knop rechtsboven.</li>
+            <li>Volg de voortgang in de statusbalk.</li>
+        </ol>
+
+        <p>Handmatige scans controleren eerst of er wijzigingen zijn voordat er een screenshot wordt gemaakt, net als
+            automatische scans.</p>
+    </div>
+
+    <!-- Scan Results -->
+    <div class="prose mb-12">
+        <h2>Scan resultaten interpreteren</h2>
+
+        <h3>Eerste meting</h3>
+        <p>De eerste scan van een website is altijd een "eerste meting" (baseline). Dit is het referentiepunt voor alle
+            toekomstige vergelijkingen. De AI beschrijft hier de huidige staat van de website.</p>
+
+        <h3>Stabiel</h3>
+        <p>Wanneer er geen significante wijzigingen zijn sinds de vorige scan, toont Meerkat een groene "Stabiel" status
+            met een checkmark.</p>
+
+        <h3>Wijziging gesignaleerd</h3>
+        <p>Bij gedetecteerde wijzigingen zie je een oranje of rode indicator, afhankelijk van de impact score. De
+            analyse toont precies wat er is veranderd.</p>
+    </div>
+
+    <!-- Next Steps -->
+    <div class="bg-accent/5 rounded-2xl p-6 border border-accent/10">
+        <h3 class="font-semibold text-ink mb-3">Verder lezen</h3>
+        <div class="space-y-3">
+            <a href="{% url 'dashboard:help_features' %}"
+                class="flex items-center gap-2 text-accent hover:text-accent-hover text-sm font-medium">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+                Ontdek alle Meerkat features
+            </a>
+            <a href="{% url 'dashboard:help_faq' %}"
+                class="flex items-center gap-2 text-accent hover:text-accent-hover text-sm font-medium">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+                Veelgestelde vragen bekijken
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,258 @@
+{% extends 'dashboard/help/help_base.html' %}
+
+{% block title %}FAQ{% endblock %}
+
+{% block breadcrumb %}
+<svg class="w-4 h-4 text-ink-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+</svg>
+<span class="text-ink font-medium">Veelgestelde vragen</span>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl">
+    <!-- Header -->
+    <div class="mb-10">
+        <div
+            class="w-14 h-14 bg-gradient-to-br from-rose-100 to-red-100 rounded-2xl flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        </div>
+        <h1 class="text-3xl font-bold text-ink mb-3">Veelgestelde vragen</h1>
+        <p class="text-ink-secondary text-lg">Snelle antwoorden op de meest gestelde vragen over Meerkat.</p>
+    </div>
+
+    <!-- General Questions -->
+    <div class="mb-10">
+        <h2 class="text-lg font-semibold text-ink mb-4">Algemeen</h2>
+        <div class="bg-white rounded-2xl border border-border overflow-hidden">
+            <div class="accordion-item">
+                <button class="accordion-trigger">
+                    <span>Wat is Meerkat?</span>
+                    <svg class="accordion-chevron w-5 h-5 text-ink-tertiary" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="accordion-content">
+                    <p class="pb-5 text-ink-secondary text-sm">Meerkat is een AI-gestuurde competitor monitoring tool
+                        die automatisch websites van je concurrenten in de gaten houdt. Wanneer er wijzigingen worden
+                        gedetecteerd, maakt Meerkat een screenshot en analyseert de veranderingen met Google Gemini AI.
+                    </p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-trigger">
+                    <span>Hoe vaak worden websites gecontroleerd?</span>
+                    <svg class="accordion-chevron w-5 h-5 text-ink-tertiary" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="accordion-content">
+                    <p class="pb-5 text-ink-secondary text-sm">Je kunt per website kiezen hoe vaak gescand wordt: elke
+                        15, 30 of 60 minuten. Pro gebruikers hebben toegang tot 5-minuten intervallen voor real-time
+                        monitoring.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-trigger">
+                    <span>Welke AI wordt gebruikt voor de analyse?</span>
+                    <svg class="accordion-chevron w-5 h-5 text-ink-tertiary" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="accordion-content">
+                    <p class="pb-5 text-ink-secondary text-sm">Meerkat gebruikt Google Gemini, een van de meest
+                        geavanceerde AI-modellen ter wereld. Gemini vergelijkt screenshots visueel en semantisch om
+                        belangrijke wijzigingen te identificeren.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scans -->
+    <div class="mb-10">
+        <h2 class="text-lg font-semibold text-ink mb-4">Scans & Analyse</h2>
+        <div class="bg-white rounded-2xl border border-border overflow-hidden">
+            <div class="accordion-item">
+                <button class="accordion-trigger">
+                    <span>Waarom zie ik soms "Geen wijzigingen gevonden"?</span>
+                    <svg class="accordion-chevron w-5 h-5 text-ink-tertiary" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="accordion-content">
+                    <p class="pb-5 text-ink-secondary text-sm">Meerkat detecteert slim of een website daadwerkelijk is
+                        veranderd. Als de content hetzelfde is als bij de vorige scan, wordt er geen nieuwe screenshot
+                        gemaakt. Dit bespaart resources en kosten.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-trigger">
+                    <span>Wat betekent de impact score?</span>
+                    <svg class="accordion-chevron w-5 h-5 text-ink-tertiary" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="accordion-content">
+                    <p class="pb-5 text-ink-secondary text-sm">De impact score (1-10) geeft aan hoe significant een
+                        wijziging is voor jouw business. Scores 1-3 zijn cosmetisch, 4-6 zijn noteworthy, en 7-10 zijn
+                        kritieke wijzigingen die directe aandacht verdienen.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-trigger">
+                    <span>Hoe lang duurt een scan?</span>
+                    <svg class="accordion-chevron w-5 h-5 text-ink-tertiary" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="accordion-content">
+                    <p class="pb-5 text-ink-secondary text-sm">Een volledige scan (met screenshot en AI analyse) duurt
+                        meestal 15-30 seconden. Als er geen wijzigingen zijn gedetecteerd, is de check binnen een paar
+                        seconden klaar.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-trigger">
+                    <span>Kan ik handmatig een scan starten?</span>
+                    <svg class="accordion-chevron w-5 h-5 text-ink-tertiary" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="accordion-content">
+                    <p class="pb-5 text-ink-secondary text-sm">Ja! Klik op de "SCAN" knop rechtsboven om direct een scan
+                        te starten. Dit werkt ook als de automatische monitoring is gepauzeerd.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data & Privacy -->
+    <div class="mb-10">
+        <h2 class="text-lg font-semibold text-ink mb-4">Data & Privacy</h2>
+        <div class="bg-white rounded-2xl border border-border overflow-hidden">
+            <div class="accordion-item">
+                <button class="accordion-trigger">
+                    <span>Hoe lang worden screenshots bewaard?</span>
+                    <svg class="accordion-chevron w-5 h-5 text-ink-tertiary" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="accordion-content">
+                    <p class="pb-5 text-ink-secondary text-sm">Standaard worden screenshots 30 dagen bewaard. Pro
+                        gebruikers hebben toegang tot 1 jaar data retentie voor volledige historische analyse.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-trigger">
+                    <span>Worden mijn targets gedeeld met anderen?</span>
+                    <svg class="accordion-chevron w-5 h-5 text-ink-tertiary" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="accordion-content">
+                    <p class="pb-5 text-ink-secondary text-sm">Nee, jouw monitoring targets en resultaten zijn volledig
+                        privé. Niemand anders kan zien welke websites je monitort of welke analyse resultaten je
+                        ontvangt.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-trigger">
+                    <span>Kan ik mijn data exporteren?</span>
+                    <svg class="accordion-chevron w-5 h-5 text-ink-tertiary" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="accordion-content">
+                    <p class="pb-5 text-ink-secondary text-sm">Pro gebruikers kunnen rapporten exporteren als PDF. We
+                        werken aan meer export opties waaronder CSV en API toegang.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Technical -->
+    <div class="mb-10">
+        <h2 class="text-lg font-semibold text-ink mb-4">Technisch</h2>
+        <div class="bg-white rounded-2xl border border-border overflow-hidden">
+            <div class="accordion-item">
+                <button class="accordion-trigger">
+                    <span>Wat als een website achter een login zit?</span>
+                    <svg class="accordion-chevron w-5 h-5 text-ink-tertiary" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="accordion-content">
+                    <p class="pb-5 text-ink-secondary text-sm">Momenteel kan Meerkat alleen publieke pagina's monitoren.
+                        Support voor authenticated pages is in development voor Pro gebruikers.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-trigger">
+                    <span>Worden JavaScript-heavy websites ondersteund?</span>
+                    <svg class="accordion-chevron w-5 h-5 text-ink-tertiary" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="accordion-content">
+                    <p class="pb-5 text-ink-secondary text-sm">Ja! Meerkat gebruikt Playwright, waardoor moderne
+                        single-page applications (SPA's) en JavaScript-heavy websites volledig worden gerenderd voordat
+                        de screenshot wordt gemaakt.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-trigger">
+                    <span>Wat gebeurt er als een website offline is?</span>
+                    <svg class="accordion-chevron w-5 h-5 text-ink-tertiary" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="accordion-content">
+                    <p class="pb-5 text-ink-secondary text-sm">Als een website niet bereikbaar is, markeert Meerkat de
+                        scan als mislukt en probeert het opnieuw bij de volgende geplande scan. Je ziet een foutmelding
+                        in het dashboard.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="bg-gradient-to-br from-accent/5 to-purple-50 rounded-2xl border border-accent/20 p-6">
+        <h3 class="font-semibold text-ink mb-2">Nog vragen?</h3>
+        <p class="text-ink-secondary text-sm mb-4">Heb je een vraag die hier niet beantwoord wordt? Neem contact met ons
+            op!</p>
+        <a href="mailto:support@meerkat.ai"
+            class="inline-flex items-center gap-2 bg-accent text-white font-semibold py-2.5 px-5 rounded-xl hover:bg-accent-hover transition-colors text-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            Contact opnemen
+        </a>
+    </div>
+</div>
+{% endblock %}

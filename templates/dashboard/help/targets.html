@@ -1,0 +1,154 @@
+{% extends 'dashboard/help/help_base.html' %}
+
+{% block title %}Targets beheren{% endblock %}
+
+{% block breadcrumb %}
+<svg class="w-4 h-4 text-ink-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+</svg>
+<span class="text-ink font-medium">Targets beheren</span>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl">
+    <!-- Header -->
+    <div class="mb-10">
+        <div
+            class="w-14 h-14 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+            </svg>
+        </div>
+        <h1 class="text-3xl font-bold text-ink mb-3">Targets beheren</h1>
+        <p class="text-ink-secondary text-lg">Alles wat je moet weten over het toevoegen, bewerken en beheren van
+            gemonitorde websites.</p>
+    </div>
+
+    <!-- Adding Targets -->
+    <div class="prose mb-12">
+        <h2>Een nieuwe site toevoegen</h2>
+        <p>Om een nieuwe competitor website toe te voegen aan Meerkat:</p>
+
+        <ol>
+            <li>Klik op de blauwe <strong>"Nieuwe Site"</strong> knop onderaan de linker sidebar.</li>
+            <li>Vul een herkenbare <strong>naam</strong> in voor de site (bijv. "Concurrent A - Homepage").</li>
+            <li>Plak de volledige <strong>URL</strong> inclusief https:// (bijv. https://www.competitor.nl).</li>
+            <li>Kies een <strong>scan interval</strong>: 15, 30 of 60 minuten.</li>
+            <li>Klik op <strong>"Toevoegen"</strong> om de site toe te voegen.</li>
+        </ol>
+
+        <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 my-6">
+            <div class="flex gap-3">
+                <svg class="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <div>
+                    <p class="font-semibold text-amber-800 text-sm mb-1">Tip: Specifieke pagina's monitoren</p>
+                    <p class="text-amber-700 text-sm">Je hoeft niet alleen homepages te monitoren. Je kunt ook
+                        specifieke prijspagina's, productpagina's of nieuwssecties toevoegen door de exacte URL te
+                        gebruiken.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Managing Targets -->
+    <div class="prose mb-12">
+        <h2>Sites bewerken en verwijderen</h2>
+
+        <h3>Een site bewerken</h3>
+        <p>Er zijn twee manieren om een site te bewerken:</p>
+        <ul>
+            <li><strong>Desktop:</strong> Hover over de site in de sidebar en klik op het potlood-icoontje.</li>
+            <li><strong>Mobile:</strong> Swipe naar links op de site om de edit-knop te tonen.</li>
+        </ul>
+        <p>Je kunt de naam, URL en het scan interval aanpassen.</p>
+
+        <h3>Een site verwijderen</h3>
+        <p>Om een site te verwijderen:</p>
+        <ul>
+            <li><strong>Desktop:</strong> Hover over de site en klik op het prullenbak-icoontje.</li>
+            <li><strong>Mobile:</strong> Swipe naar links en tik op "Verwijder".</li>
+        </ul>
+        <p>Let op: alle bijbehorende scans en screenshots worden ook verwijderd. Deze actie kan niet ongedaan worden
+            gemaakt.</p>
+    </div>
+
+    <!-- Scan Intervals -->
+    <div class="prose mb-12">
+        <h2>Scan intervallen</h2>
+        <p>Het scan interval bepaalt hoe vaak Meerkat de website controleert op wijzigingen. Kies het interval dat past
+            bij het belang van de concurrent:</p>
+
+        <div class="grid gap-4 my-6">
+            <div class="bg-white rounded-xl border border-border p-5">
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="bg-danger/10 text-danger text-xs font-bold px-2 py-1 rounded">15 min</span>
+                    <span class="font-semibold text-ink">Kritieke concurrenten</span>
+                </div>
+                <p class="text-ink-secondary text-sm">Voor directe concurrenten waar je geen enkele wijziging wilt
+                    missen. Ideaal voor prijspagina's en promoties.</p>
+            </div>
+
+            <div class="bg-white rounded-xl border border-border p-5">
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="bg-amber-100 text-amber-700 text-xs font-bold px-2 py-1 rounded">30 min</span>
+                    <span class="font-semibold text-ink">Belangrijke concurrenten</span>
+                </div>
+                <p class="text-ink-secondary text-sm">Goede balans tussen up-to-date blijven en resources. Geschikt voor
+                    de meeste monitoring cases.</p>
+            </div>
+
+            <div class="bg-white rounded-xl border border-border p-5">
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded">60 min</span>
+                    <span class="font-semibold text-ink">Algemene monitoring</span>
+                </div>
+                <p class="text-ink-secondary text-sm">Voor sites die minder vaak veranderen of minder kritiek zijn.
+                    Efficiënt voor grote aantallen targets.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pausing Targets -->
+    <div class="prose mb-12">
+        <h2>Sites pauzeren</h2>
+        <p>Je kunt het monitoren van een site tijdelijk uitschakelen zonder de site te verwijderen:</p>
+
+        <ol>
+            <li>Selecteer de site in de sidebar.</li>
+            <li>Klik op de toggle-switch naast de sitenaam in het header-gedeelte.</li>
+            <li>De status verandert van groen (actief) naar rood (gepauzeerd).</li>
+        </ol>
+
+        <p>Gepauzeerde sites worden niet meer automatisch gescand. Je kunt wel nog handmatig een scan starten door op de
+            "SCAN" knop te klikken.</p>
+
+        <p>Om monitoring te hervatten, klik je opnieuw op de toggle-switch.</p>
+    </div>
+
+    <!-- Next Steps -->
+    <div class="bg-accent/5 rounded-2xl p-6 border border-accent/10">
+        <h3 class="font-semibold text-ink mb-3">Meer leren</h3>
+        <div class="space-y-3">
+            <a href="{% url 'dashboard:help_scans' %}"
+                class="flex items-center gap-2 text-accent hover:text-accent-hover text-sm font-medium">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+                Hoe scans en AI analyse werken
+            </a>
+            <a href="{% url 'dashboard:help_features' %}"
+                class="flex items-center gap-2 text-accent hover:text-accent-hover text-sm font-medium">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+                Alle Meerkat features ontdekken
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
